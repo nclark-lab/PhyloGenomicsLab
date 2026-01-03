@@ -1,0 +1,109 @@
+"common_name"	"scientific_name"	"Adult_weight.g"	"Longevity.yrs"	"inferred_from"	"clade"	"mammal"	"ncbi_taxonid"	"has_duplicate_taxonid"	"GenBank_id"	"scaffold_n50_kb"	"BUSCO_analysis"	"notes_NCBI"	"Old_or_New_World_monkey"
+"hg38"	"human"	"Homo sapiens"	62035	122.5	NA	"Primates"	"placental"	9606	"no"	"GCA_000001405.29"	67800	"C:99.2%[S:98.5%,D:0.7%],F:0.2%,M:0.7%,n:13780"	"reference"	NA
+"HLpitPit1"	"white-faced saki"	"Pithecia pithecia"	1480	36	NA	"Primates"	"placental"	43777	"no"	"GCA_004026645.1"	83.1	NA	"not reference"	"New"
+"HLateGeo1"	"black-handed spider monkey"	"Ateles geoffroyi"	7267.5	47.1	NA	"Primates"	"placental"	9509	"no"	"GCA_004024785.1"	73.1	NA	"not reference"	"New"
+"cebCap1"	"Panamanian white-faced capuchin"	"Cebus capucinus imitator"	2655	54	"Cebus capucinus, same species"	"Primates"	"placental"	2715852	"no"	"GCA_001604975.1"	5300	"C:97.6%[S:95.6%,D:2.0%],F:1.3%,M:1.0%,n:13780"	"reference"	"New"
+"HLcalJac4"	"white-tufted-ear marmoset"	"Callithrix jacchus"	255.2	22.8	NA	"Primates"	"placental"	9483	"no"	"GCA_011100555.1"	137000	NA	"replaced by newer version"	"New"
+"tarSyr2"	"Philippine tarsier"	"Carlito syrichta"	119.2	16	NA	"Primates"	"placental"	1868482	"no"	"GCA_000164805.2"	401.2	"C:86.2%[S:85.0%,D:1.2%],F:7.5%,M:6.4%,n:13780"	"reference"	NA
+"HLdauMad1"	"aye-aye"	"Daubentonia madagascariensis"	2277.5	32.3	NA	"Primates"	"placental"	31869	"no"	"GCA_004027145.1"	379.9	NA	"not reference"	NA
+"micMur3"	"gray mouse lemur"	"Microcebus murinus"	64.8	18.2	NA	"Primates"	"placental"	30608	"no"	"GCA_000165445.3"	108200	"C:97.8%[S:96.4%,D:1.4%],F:0.9%,M:1.3%,n:13780"	"reference"	NA
+"HLproSim1"	"greater bamboo lemur"	"Prolemur simus"	1737.5	17.6	NA	"Primates"	"placental"	1328070	"no "	"GCA_003258685.1"	2700	NA	"reference"	NA
+"mm39"	"house mouse"	"Mus musculus"	20.5	4	NA	"Glires"	"placental"	10090	"yes"	"GCA_000001635.9"	106100	"C:99.5%[S:98.6%,D:0.9%],F:0.2%,M:0.4%,n:13798"	"reference"	NA
+"HLapoSyl1"	"European woodmouse"	"Apodemus sylvaticus"	23.4	6.3	NA	"Glires"	"placental"	10129	"no"	"GCA_001305905.1"	246	NA	"not reference"	NA
+"HLarvNil1"	"African grass rat"	"Arvicanthis niloticus"	110	6.7	NA	"Glires"	"placental"	61156	"no"	"GCA_011762505.1"	82700	"C:99.2%[S:97.0%,D:2.2%],F:0.3%,M:0.6%,n:13798"	"reference"	NA
+"HLratNor7"	"Norway rat"	"Rattus norvegicus"	300	3.8	NA	"Glires"	"placental"	10116	"yes"	"GCA_015227675.1"	135000	NA	"suppressed; newer version"	NA
+"HLacoCah1"	"Egyptian spiny mouse"	"Acomys cahirinus"	45.2	5.9	NA	"Glires"	"placental"	10068	"no"	"GCA_004027535.1"	65.4	NA	"not reference"	NA
+"HLpsaObe1"	"fat sand rat"	"Psammomys obesus"	212	3.2	NA	"Glires"	"placental"	48139	"no"	"GCA_002215935.2"	10500	NA	"not reference"	NA
+"mesAur1"	"golden hamster"	"Mesocricetus auratus"	105	3.9	NA	"Glires"	"placental"	10036	"no"	"GCA_000349665.1"	12800	"C:96.5%[S:93.8%,D:2.7%],F:1.7%,M:1.8%,n:13798"	"suppressed"	NA
+"HLsigHis1"	"hispid cotton rat"	"Sigmodon hispidus"	185	5.2	NA	"Glires"	"placental"	42415	"no"	"GCA_004025045.1"	101.4	NA	"reference"	NA
+"HLneoLep1"	"desert woodrat"	"Neotoma lepida"	236	10.5	NA	"Glires"	"placental"	56216	"no"	"GCA_001675575.1"	151.7	NA	"reference"	NA
+"HLonyTor1"	"southern grasshopper mouse"	"Onychomys torridus"	22	4.6	NA	"Glires"	"placental"	38674	"no"	"GCA_903995425.1"	112700	"C:97.0%[S:96.1%,D:1.0%],F:0.9%,M:2.1%,n:13798"	"reference"	NA
+"HLperCal2"	"Peromyscus californicus subsp. insignis"	"Peromyscus californicus insignis"	42	5.5	"Peromyscus californicus, same species"	"Glires"	"placental"	564181	"no"	"GCA_007827085.2"	113700	NA	"replaced by newer version (reference)"	NA
+"HLarvAmp1"	"Eurasian water vole"	"Arvicola amphibius"	120	2.5	NA	"Glires"	"placental"	1047088	"no"	"GCA_903992535.1"	138700	NA	"replaced by newer version (reference)"	NA
+"HLcriGam1"	"Gambian giant pouched rat"	"Cricetomys gambianus"	1500	8.4	NA	"Glires"	"placental"	10085	"no"	"GCA_004027575.1"	110	NA	"reference"	NA
+"jacJac1"	"lesser Egyptian jerboa"	"Jaculus jaculus"	55	7.3	NA	"Glires"	"placental"	51337	"no"	"GCA_000280705.1"	22100	"C:96.6%[S:95.5%,D:1.2%],F:1.8%,M:1.6%,n:13798"	"suppressed"	NA
+"HLcasCan3"	"American beaver"	"Castor canadensis"	20250	23.4	NA	"Glires"	"placental"	51338	"no"	"GCA_001984765.1"	317.7	"C:92.4%[S:91.1%,D:1.3%],F:4.4%,M:3.2%,n:13798"	"DNA Zoo; reference"	NA
+"dipOrd2"	"Ord's kangaroo rat"	"Dipodomys ordii"	57	9.9	NA	"Glires"	"placental"	10020	"no"	"GCA_000151885.2"	11900	"C:93.8%[S:93.2%,D:0.6%],F:3.5%,M:2.7%,n:13798"	"reference"	NA
+"HLpedCap1"	"springhare"	"Pedetes capensis"	3500	20	NA	"Glires"	"placental"	10023	"no"	"GCA_007922755.1"	74.4	NA	"reference"	NA
+"HLcteGun1"	"northern gundi"	"Ctenodactylus gundi"	288.8	5.8	NA	"Glires"	"placental"	10166	"no"	"GCA_004027205.1"	354.5	NA	"reference"	NA
+"HLhysCri1"	"crested porcupine"	"Hystrix cristata"	20000	28	NA	"Glires"	"placental"	10137	"no"	"GCA_004026905.1"	64.8	NA	"reference"	NA
+"HLereDor1"	"North American porcupine"	"Erethizon dorsatum"	8600	23.4	"erethizon dorsatus, same species"	"Glires"	"placental"	34844	"no"	"GCA_006547115.1"	16700	NA	"not reference"	NA
+"HLdasPun1"	"punctate agouti"	"Dasyprocta punctata"	2150	13.8	NA	"Glires"	"placental"	34846	"no"	"GCA_004363535.1"	43.7	NA	"reference"	NA
+"HLhydHyd1"	"capybara"	"Hydrochoerus hydrochaeris"	55000	15.1	NA	"Glires"	"placental"	10149	"no"	"GCA_004027455.1"	202.2	NA	"reference"	NA
+"HLcavTsc1"	"Montane guinea pig"	"Cavia tschudii"	637.5	6.3	NA	"Glires"	"placental"	143287	"no"	"GCA_004027695.1"	91.4	NA	"reference"	NA
+"chiLan1"	"long-tailed chinchilla"	"Chinchilla lanigera"	642.5	17.2	NA	"Glires"	"placental"	34839	"no"	"GCA_000276665.1"	21900	"C:98.8%[S:98.2%,D:0.6%],F:0.5%,M:0.7%,n:13798"	"reference"	NA
+"HLdinBra1"	"pacarana"	"Dinomys branickii"	12250	12.8	NA	"Glires"	"placental"	108858	"no"	"GCA_004027595.1"	77.9	NA	"reference"	NA
+"octDeg1"	"degu"	"Octodon degus"	235	14	NA	"Glires"	"placental"	10160	"no"	"GCA_000260255.1"	12100	"C:97.4%[S:95.1%,D:2.3%],F:1.5%,M:1.1%,n:13798"	"reference"	NA
+"hetGla2"	"naked mole-rat"	"Heterocephalus glaber"	35	31	NA	"Glires"	"placental"	10181	"no"	"GCA_000247695.1"	20500	"C:97.9%[S:96.6%,D:1.2%],F:0.7%,M:1.4%,n:13798"	"reference"	NA
+"HLfukDam2"	"Damara mole-rat"	"Fukomys damarensis"	180	15.5	"cryptomys damarensis, same species, same common name"	"Glires"	"placental"	885580	"no"	"GCA_012274545.1"	62600	"C:93.8%[S:93.0%,D:0.9%],F:3.2%,M:3.0%,n:13798"	"reference"	NA
+"HLsciVul1"	"Eurasian red squirrel"	"Sciurus vulgaris"	600	14.8	NA	"Glires"	"placental"	55149	"no"	"GCA_902686455.1"	153900	NA	"replaced by newer version (reference)"	NA
+"HLxerIna1"	"South African ground squirrel"	"Xerus inauris"	588	11.5	NA	"Glires"	"placental"	234690	"no"	"GCA_004024805.1"	83.9	NA	"reference"	NA
+"HLmarFla1"	"yellow-bellied marmot"	"Marmota flaviventris"	3500	21.2	NA	"Glires"	"placental"	93162	"no"	"GCA_003676075.2"	11400	NA	"replaced; contaminated"	NA
+"HLmusAve1"	"hazel dormouse"	"Muscardinus avellanarius"	27.3	5.3	NA	"Glires"	"placental"	39082	"no"	"GCA_004027005.1"	59	NA	"not reference"	NA
+"ochPri3"	"American pika"	"Ochotona princeps"	100	7	NA	"Glires"	"placental"	9978	"no"	"GCA_000292845.1"	26900	NA	"suppressed"	NA
+"HLlepTim1"	"Mountain hare"	"Lepus timidus"	4175	18	NA	"Glires"	"placental"	62621	"no"	"GCA_009760805.1"	116300	NA	"reference"	NA
+"tupBel1"	"northern tree shrew"	"Tupaia belangeri"	200	11.1	NA	"Euarchontoglires"	"placental"	37347	"no"	"GCA_000181375.1"	NA	NA	"reference"	NA
+"tupChi1"	"Chinese tree shrew"	"Tupaia chinensis"	200	11.1	NA	"Euarchontoglires"	"placental"	246437	"no"	"GCA_000334495.1"	3700	"C:96.7%[S:95.5%,D:1.2%],F:1.6%,M:1.7%,n:12692"	"reference"	NA
+"HLcapHir2"	"goat"	"Capra hircus"	61000	20.8	NA	"Cetartiodactyla"	"placental"	9925	"no"	"GCA_001704415.1"	87300	NA	"replaced; contaminated"	NA
+"HLodoVir3"	"white-tailed deer"	"Odocoileus virginianus"	87000	23	NA	"Cetartiodactyla"	"placental"	9874	"yes"	"GCA_014726795.1"	17100	NA	"not reference"	NA
+"HLokaJoh2"	"okapi"	"Okapia johnstoni"	225000	33.5	NA	"Cetartiodactyla"	"placental"	86973	"no"	"GCA_001660835.1"	111.5	NA	"not reference"	NA
+"HLtraJav1"	"Java mouse-deer"	"Tragulus javanicus"	2850	14	NA	"Artiodactyla"	"placental"	9849	"no"	"GCA_004024965.2"	14100	NA	"reference"	NA
+"HLbalMus1"	"Blue whale"	"Balaenoptera musculus"	1.36e+08	110	NA	"Artiodactyla"	"placental"	9771	"no"	"GCA_009873245.1"	110500	NA	"replaced by newer version (reference)"	NA
+"HLhipAmp3"	"hippopotamus"	"Hippopotamus amphibius"	3750000	61.2	NA	"Cetartiodactyla"	"placental"	9833	"yes"	"GCA_004027065.2"	4400	NA	"not reference"	NA
+"susScr11"	"pig"	"Sus scrofa"	130000	27	NA	"Cetartiodactyla"	"placental"	9823	"no"	"GCA_000003025.6"	88200	"C:98.2%[S:97.7%,D:0.5%],F:0.3%,M:1.6%,n:13335"	"reference"	NA
+"HLcamDro2"	"Arabian camel"	"Camelus dromedarius"	434000	28.4	NA	"Cetartiodactyla"	"placental"	9838	"no"	"GCA_000803125.3"	70400	"C:98.4%[S:97.8%,D:0.6%],F:0.7%,M:0.9%,n:13335"	"suppressed"	NA
+"HLtapTer1"	"Brazilian tapir"	"Tapirus terrestris"	250000	39.6	NA	"Laurasiatheria"	"placental"	9801	"no"	"GCA_004025025.1"	186.4	NA	"reference"	NA
+"HLdicBic1"	"black rhinoceros"	"Diceros bicornis"	1100000	57	NA	"Laurasiatheria"	"placental"	9805	"no"	"GCA_004027315.2"	14700	NA	"not reference"	NA
+"equCab3"	"horse"	"Equus caballus"	3e+05	57	NA	"Laurasiatheria"	"placental"	9796	"no"	"GCA_002863925.1"	87200	"C:99.0%[S:97.9%,D:1.1%],F:0.3%,M:0.8%,n:12234"	"reference"	NA
+"HLspiGra1"	"western spotted skunk"	"Spilogale gracilis"	600	10.5	"Spilogale putorius, same genus"	"Carnivora"	"placental"	30551	"no "	"GCA_004023965.1"	86	NA	"reference"	NA
+"HLailFul2"	"lesser panda"	"Ailurus fulgens"	4325	19	NA	"Carnivora"	"placental"	9649	"no "	"GCA_002007465.1"	3000	NA	"DNA Zoo; reference"	NA
+"HLlutLut1"	"Eurasian river otter"	"Lutra lutra"	6750	18.2	NA	"Carnivora"	"placental"	9657	"no"	"GCA_902655055.1"	149000	NA	"replaced by newer version (reference)"	NA
+"HLpotFla1"	"kinkajou"	"Potos flavus"	3000	38.4	NA	"Carnivora"	"placental"	29067	"no"	"GCA_028534135.1"	121700	NA	"DNA Zoo; reference"	NA
+"HLzalCal1"	"California sea lion"	"Zalophus californianus"	180000	35.7	NA	"Carnivora"	"placental"	9704	"no"	"GCA_009762305.1"	146900	NA	"replaced by newer version (reference)"	NA
+"HLursArc1"	"grizzly bear"	"Ursus arctos horribilis"	277500	40	"Ursus arctos, same species"	"Carnivora"	"placental"	116960	"no"	"GCA_003584765.1"	36700	NA	"suppressed; newer version"	NA
+"canFam4"	"dog"	"Canis lupus familiaris"	26625	20.6	"canFam3"	"Carnivora"	"placental"	9615	"yes"	"GCA_011100685.1"	64300	"C:98.1%[S:92.1%,D:6.0%],F:0.4%,M:1.5%,n:14502"	"reference"	NA
+"felCat9"	"domestic cat"	"Felis catus"	3900	30	NA	"Carnivora"	"placental"	9685	"no"	NA	NA	NA	"Felis_catus_9.0/felCat9"	NA
+"HLparHer1"	"Asian palm civet"	"Paradoxurus hermaphroditus"	3100	24.5	NA	"Carnivora"	"placental"	71117	"no "	" GCA_004024585.1"	71.8	NA	"reference"	NA
+"HLhyaHya1"	"striped hyena"	"Hyaena hyaena"	40000	25	NA	"Carnivora"	"placental"	95912	"no "	"GCA_003009895.1"	2000	"C:97.5%[S:96.3%,D:1.2%],F:0.6%,M:1.9%,n:14502"	"reference"	NA
+"HLphaTri2"	"Tree pangolin"	"Manis tricuspis"	2350	20	NA	"Laurasiatheria"	"placental"	358128	"yes"	"GCA_029783875.1"	46400	NA	"DNA Zoo; reference"	NA
+"HLmanPen2"	"Chinese pangolin"	"Manis pentadactyla"	2350	20	NA	"Laurasiatheria"	"placental"	143292	"yes"	"GCA_014570555.1"	7800	"C:96.8%[S:95.2%,D:1.6%],F:1.0%,M:2.2%,n:12234"	"suppressed"	NA
+"HLmyoMyo6"	"greater mouse-eared bat"	"Myotis myotis"	28.55	37.1	NA	"Chiroptera"	"placental"	51298	"no"	"MAYBE: GCA_014108235.1"	NA	NA	"UCSC no link. Bat1K submitted (says this on UCSC) and there is an assembly on NCBI submitted by them (GCA_014108235.1), but no way of verifying if it's the same assembly. UCSC says HLmyoMyo6, but NCBI says mMyoMyo1 (REFERENCE GENOME)"	NA
+"HLaeoCin1"	"hoary bat"	"Aeorestes cinereus"	24	14	"Lasiurus cinereus, same species, same common name"	"Chiroptera"	"placental"	257879	"no"	"GCA_011751065.1"	35100	NA	"reference"	NA
+"eptFus1"	"big brown bat"	"Eptesicus fuscus"	23	19	NA	"Chiroptera"	"placental"	29078	"no"	"GCA_000308155.1"	13500	"C:96.3%[S:95.8%,D:0.5%],F:1.9%,M:1.8%,n:12234"	"suppressed"	NA
+"HLpipKuh2"	"Kuhl's pipistrelle"	"Pipistrellus kuhlii"	6	8	NA	"Chiroptera"	"placental"	59472	"no"	"MAYBE: GCA_014108245.1"	NA	NA	"UCSC no link. Bat1K submitted (says this on UCSC) and there is an assembly on NCBI submitted by them (GCA_014108245.1), but no way of verifying if it's the same assembly. UCSC says HLpipKuh2, but NCBI says mPipKuh1 (REFERENCE GENOME)"	NA
+"HLminSch1"	"Schreibers' long-fingered bat"	"Miniopterus schreibersii"	13	22	NA	"Chiroptera"	"placental"	9433	"no"	"GCA_004026525.1"	108.7	NA	"reference"	NA
+"HLmolMol2"	"Pallas's mastiff bat"	"Molossus molossus"	14	5.6	NA	"Chiroptera"	"placental"	27622	"no"	"MAYBE: GCA_014108415.1"	NA	NA	"UCSC no link. Bat1K submitted (says this on UCSC) and there is an assembly on NCBI submitted by them (GCA_014108415.1), but no way of verifying if it's the same assembly. UCSC says HLMolMol2, but NCBI says mMolMol1"	NA
+"HLdesRot2"	"common vampire bat"	"Desmodus rotundus"	33.2	29.2	NA	"Chiroptera"	"placental"	9430	"no"	NA	NA	NA	"UCSC no link. 3 Bat1K assemblies submitted, no way of knowing which is the correct one"	NA
+"HLphyDis3"	"pale spear-nosed bat"	"Phyllostomus discolor"	43.4	9	NA	"Chiroptera"	"placental"	89673	"no"	"MAYBE: GCA_014049915.1"	NA	NA	"UCSC no link. Bat1K submitted (says this on UCSC) and there is an assembly on NCBI submitted by them (GCA_014049915.1), but no way of verifying if it's the same assembly"	NA
+"HLstuHon1"	"Honduran yellow-shouldered bat"	"Sturnira hondurensis"	20	12	"sturnira lilium, same genus"	"Chiroptera"	"placental"	192404	"no"	"GCA_014824575.1"	10200	NA	"replaced; contaminated"	NA
+"HLartJam2"	"Jamaican fruit-eating bat"	"Artibeus jamaicensis"	42.2	19.2	NA	"Chiroptera"	"placental"	9417	"yes"	"GCA_014825515.1"	2600	"C:96.8%[S:95.5%,D:1.2%],F:1.5%,M:1.7%,n:12234"	"suppressed"	NA
+"HLlepYer1"	"Lesser long-nosed bat"	"Leptonycteris yerbabuenae"	25	10.1	"leptonycteris curasoae, same genus"	"Chiroptera"	"placental"	700936	"no"	NA	NA	NA	"no info on NCBI, UCSC no link"	NA
+"HLnocLep1"	"greater bulldog bat"	"Noctilio leporinus"	50	11.8	NA	"Chiroptera"	"placental"	94963	"no"	"GCA_004026585.1"	191.5	NA	"reference"	NA
+"HLcynBra1"	"lesser short-nosed fruit bat"	"Cynopterus brachyotis"	45	10.1	NA	"Chiroptera"	"placental"	58060	"no"	"GCA_009793145.1"	251.3	NA	"reference"	NA
+"HLrouAeg4"	"Egyptian rousette"	"Rousettus aegyptiacus"	125	22.9	NA	"Chiroptera"	"placental"	9407	"no"	"MAYBE: GCA_014176215.1"	NA	NA	"UCSC no link. Bat1K submitted (says this on UCSC) and there is an assembly on NCBI submitted by them (GCA_014176215.1), but no way of verifying if it's the same assembly. UCSC says HLrouAeg4, but NCBI says mRouAeg1"	NA
+"HLmegLyr2"	"Indian false vampire"	"Megaderma lyra"	38.6	14	NA	"Chiroptera"	"placental"	9413	"no"	"GCA_004026885.1"	96.5	NA	"reference"	NA
+"HLrhiFer5"	"greater horseshoe bat"	"Rhinolophus ferrumequinum"	22.875	30.5	NA	"Chiroptera"	"placental"	59479	"no"	NA	NA	NA	"no info on NCBI, UCSC no link"	NA
+"HLhipArm1"	"great roundleaf bat"	"Hipposideros armiger"	7	13	"hipposideros fulvus, same genus"	"Chiroptera"	"placental"	186990	"no"	"GCA_001890085.1"	2300	NA	"reference"	NA
+"HLsolPar1"	"Hispaniolan solenodon"	"Solenodon paradoxus"	1000	12.1	NA	"Laurasiatheria"	"placental"	79805	"no"	"GCA_004363575.1"	407.7	NA	"reference"	NA
+"eriEur2"	"western European hedgehog"	"Erinaceus europaeus"	750	11.7	NA	"Laurasiatheria"	"placental"	9365	"no"	"GCA_000296755.1"	3300	"C:94.9%[S:93.9%,D:0.9%],F:2.0%,M:3.1%,n:12234"	"suppressed"	NA
+"sorAra2"	"European shrew"	"Sorex araneus"	9	3.2	NA	"Laurasiatheria"	"placental"	42254	"no"	"GCA_000181275.2"	22800	NA	"suppressed; newer version"	NA
+"HLscaAqu1"	"eastern mole"	"Scalopus aquaticus"	90	6.2	NA	"Laurasiatheria"	"placental"	71119	"no"	"GCA_004024925.1"	94.9	NA	"reference"	NA
+"conCri1"	"star-nosed mole"	"Condylura cristata"	55.3	2.5	NA	"Laurasiatheria"	"placental"	143302	"no"	"GCA_000260355.1"	55500	"C:92.6%[S:92.2%,D:0.4%],F:2.4%,M:5.0%,n:12234"	"reference"	NA
+"echTel2"	"small Madagascar hedgehog"	"Echinops telfairi"	180	19	NA	"Afrotheria"	"placental"	9371	"no"	"GCA_000313985.1"	45800	NA	"replaced by newer version (reference)"	NA
+"HLmicTal1"	"Talazac's shrew tenrec"	"Microgale talazaci"	50	5.8	NA	"Afrotheria"	"placental"	176115	"no"	"GCA_004026705.1"	65.1	NA	"reference"	NA
+"eleEdw1"	"Cape elephant shrew"	"Elephantulus edwardii"	50	8.75	NA	"Afrotheria"	"placental"	28737	"no"	"GCA_000299155.1"	15000	"C:96.4%[S:94.0%,D:2.4%],F:1.2%,M:2.4%,n:11366"	"reference"	NA
+"oryAfe1"	"aardvark"	"Orycteropus afer afer"	60000	29.8	NA	"Afrotheria"	"placental"	1230840	"no"	"GCA_000298275.1"	7900	"C:96.5%[S:95.5%,D:1.0%],F:1.2%,M:2.3%,n:11366"	"reference"	NA
+"HLproCap3"	"Cape rock hyrax"	"Procavia capensis"	3600	14.8	NA	"Afrotheria"	"placental"	9813	"no"	"GCA_004026925.3"	9100	NA	"contaminated"	NA
+"triMan1"	"Florida manatee"	"Trichechus manatus latirostris"	322000	65	NA	"Afrotheria"	"placental"	127582	"no"	"GCA_000243295.1"	14400	"C:96.6%[S:96.1%,D:0.5%],F:1.5%,M:1.9%,n:11366"	"reference"	NA
+"HLeleMax1"	"Asiatic elephant"	"Elephas maximus"	3178000	79.6	NA	"Afrotheria"	"placental"	9783	"no"	NA	96000	NA	"DNA Zoo"	NA
+"dasNov3"	"nine-banded armadillo"	"Dasypus novemcinctus"	5500	22.3	NA	"Xenarthra"	"placental"	9361	"no"	"GCA_000208655.4"	1700	NA	"suppressed"	NA
+"HLmyrTri1"	"giant anteater"	"Myrmecophaga tridactyla"	28500	31	NA	"Xenarthra"	"placental"	71006	"no"	"GCA_004026745.1"	41.3	NA	"reference"	NA
+"HLchoDid2"	"southern two-toed sloth"	"Choloepus didactylus"	6250	36.8	NA	"Xenarthra"	"placental"	27675	"yes"	"GCF_015220235.1"	146200	"C:97.7%[S:91.7%,D:5.9%],F:0.6%,M:1.8%,n:11366"	"reference"	NA
+"odoRosDiv1"	"Pacific walrus"	"Odobenus rosmarus divergens"	1010000	40	"odoRosDi"	"Carnivora"	"placental"	9708	"yes"	"GCA_000321225.1"	2600	"C:98.8%[S:97.5%,D:1.3%],F:0.6%,M:0.7%,n:14502"	"reference"	NA
+"enhLutNer1"	"Southern sea otter"	"Enhydra lutris nereis"	25850	27	"Enhydra lutris, same species"	"Carnivora"	"placental"	1049777	"no"	"GCA_006410715.1"	9800	NA	"not reference"	NA
+"lepWed1"	"Weddell seal"	"Leptonychotes weddellii"	425000	30	NA	"Carnivora"	"placental"	9713	"no"	"GCA_000349705.1"	904.1	"C:84.4%[S:83.3%,D:1.0%],F:9.5%,M:6.1%,n:14502"	"reference"	NA
+"HLescRob1"	"grey whale"	"Eschrichtius robustus"	28500000	77	NA	"Cetartiodactyla"	"placental"	9764	"no"	"GCA_004363415.1"	94.4	NA	"not reference"	NA
+"balAcu1"	"minke whale"	"Balaenoptera acutorostrata scammoni"	7500000	50	"Balaenoptera acutorostrata, same species"	"Artiodactyla"	"placental"	310752	"no"	"GCA_000493695.1"	12800	"C:97.6%[S:96.3%,D:1.4%],F:1.1%,M:1.3%,n:13335"	"suppressed"	NA
+"orcOrc1"	"killer whale"	"Orcinus orca"	3987500	90	NA	"Cetartiodactyla"	"placental"	9733	"no"	"GCA_000331955.2"	12700	"C:97.8%[S:95.8%,D:2.1%],F:0.8%,M:1.4%,n:13335"	"suppressed"	NA
+"HLmarMar1"	"Alpine marmot"	"Marmota marmota marmota"	3500	17.4	"marmota marmota, same species"	"Glires"	"placental"	9994	"no"	"GCA_001458135.1"	31300	NA	"replaced by newer version (reference)"	NA
+"HLmarMon1"	"woodchuck"	"Marmota monax"	4000	14	NA	"Glires"	"placental"	9995	"yes"	"GCA_901343595.1"	892.2	NA	"not reference"	NA
