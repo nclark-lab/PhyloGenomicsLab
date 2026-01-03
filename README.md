@@ -55,6 +55,8 @@ install.packages("phangorn")
 install.packages("BiocManager")
 BiocManager::install("ggtree")
 BiocManager::install("impute")
+BiocManager::install("Biostrings")
+BiocManager::install("DECIPHER")
 
 devtools::install_github("nclark-lab/RERconverge")
 ```
@@ -99,7 +101,8 @@ speciesTreeCommon$tip.label <- mammal108phenotypes[speciesTreeCommon$tip.label,"
 plot(speciesTreeCommon, cex=0.5, edge.width = 0.5, main="Mammalian Species Tree", align.tip.label=F)
 
 ```
-![A phylogeny of 108 mammal species](images/speciesTree.jpg)
+
+<img src="images/speciesTree.jpg" width="500">
 
 ---
 # Preparing gene trees
@@ -112,21 +115,24 @@ There are multiple potential sources for orthologous gene MSAs:
 3. Group and Align annotated genes from your species. Suggested to use OrthoFinder followed by OrthoSnap.
 4. Download [Clark lab gene trees](https://github.com/nclark-lab/ComparativeData/wiki). (Alignments also available).
 
-We will begin using a demonstration set of MSAs available in the **`alignments`** directory.
+For this lab, we will use a demonstration set of MSAs available in the **`alignments`** directory. [Download alignments.zip here](https://pitt-my.sharepoint.com/:f:/g/personal/nclark_pitt_edu/IgBYR3CPWrWjQZ5mfrloQ8hpARMYAm84WkMXLu786CbPy_g?e=5y5NbH).
+The alignments are in multiple-aligned fasta format `.mfa`. A mostly random set of 4,708 orthologous gene alignments were chosen for speed.  
 
-# Examining a multiple sequence alignment with ggmsa
-## Lens Instrinsic Membrane protein 2 (LIM2) encodes a protein important in lens function and hence vision.
-Which species have the most amino acid changes? Why these species?
+> ## [History of FASTA format](https://en.wikipedia.org/wiki/FASTA#History)  
+> FASTA is pronounced "fast A", and stands for "FAST-All", because it works with any alphabet, an extension of the original "FAST-P" (protein) and "FAST-N" (nucleotide) alignment tools.
+> [Lipman, DJ; Pearson, WR (1985).](https://doi.org/10.1126%2Fscience.2983426)
 
-[alignments.zip](https://pitt-my.sharepoint.com/:f:/g/personal/nclark_pitt_edu/IgBYR3CPWrWjQZ5mfrloQ8hpARMYAm84WkMXLu786CbPy_g?e=5y5NbH)
 
-[SeaView](https://doua.prabi.fr/software/seaview) alignment program
+## Examining a multiple sequence alignment in R with `DECIPHER` or in stand-alone program `seaview`.
+Download [SeaView](https://doua.prabi.fr/software/seaview) alignment program. Versions available for all platforms.
+Open `LIM2.mfa` or any multiple-aligned fasta `.mfa` file from `alignments` in `seaview`. Seaview is interactive and can do much more than visualize alignments, such as infer phylogenies.
 
-# BiocManager::install("Biostrings")
-# library(Biostrings)
-# BiocManager::install("DECIPHER")
-# library(DECIPHER)
+
+
+
+Alternatively, use DECIPHER in R to export an alignment image to your default webbrowser.
 ```{r LIM2 alignment}
+library(Biostrings); library(DECIPHER); # Load required libraries
 alnLIM2 <- readAAStringSet("alignments/LIM2.mfa")
 colors <- c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
 +             `D`="#FD5559", `C`="#12C7FE", `Q`="#DDACB4", `E`="#FEA097", `G`="#F46802",
@@ -135,6 +141,8 @@ colors <- c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
 +             `Y`="#9BB896", `V`="#89B9F9")
 BrowseSeqs(alnLIM2,colors=colors,patterns=names(colors))
 ```
+### Lens Instrinsic Membrane protein 2 (LIM2) encodes a protein important in lens function and hence vision.
+Which species have the most amino acid changes? Why these species?
 
 
 ---
@@ -344,3 +352,4 @@ This analysis illustrates how **RERconverge** leverages convergent phenotypic ev
 
 - Kowalczyk et al. *Genome Biology* (2019)
 - Chikina et al. *PLoS Genetics* (2016)
+
