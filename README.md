@@ -2,7 +2,7 @@
 # Convergent Evolution of Tooth Enamel Loss in Mammals
 ## An RERconverge Demonstration
 ### Nathan Clark
-###University of Pittsburgh
+### University of Pittsburgh
 ### 2026 January 21
 ---
 
@@ -73,7 +73,7 @@ More than 400 mammalian species genomes are available today, the workshop uses a
 Read in the phenotypes table and examine the species using `read.csv()` and `View()` (only available in RStudio).
 
 ```
-mammal108phenotypes <- read.csv("mammal108phenotypes.csv")
+mammal108phenotypes <- read.table("mammal108phenotypes.tsv", header=TRUE, sep="\t")
 View(mammal108phenotypes)
 ```
 
@@ -90,15 +90,16 @@ This tree represents the shared evolutionary history of the mammalian taxa inclu
 speciesTree <- read.tree("speciesTree108.nwk")
 
 # Plot tree basic, with genome version names
-plot(speciesTree, cex = 0.7)
-title("Figure 1. Mammalian Species Tree")
+par(mar=c(1,1,2,1)+0.1) # Change margin to make title fit.
+plot(speciesTree, cex=0.5, edge.width = 0.5, main="Mammalian Species Tree", align.tip.label=F)
 
 # Plot tree, with common names
 speciesTreeCommon <- speciesTree
 speciesTreeCommon$tip.label <- mammal108phenotypes[speciesTreeCommon$tip.label,"common_name"]
-plot(speciesTreeCommon, cex=0.3, edge.width = 0.1, no.margin = TRUE)
+plot(speciesTreeCommon, cex=0.5, edge.width = 0.5, main="Mammalian Species Tree", align.tip.label=F)
 
 ```
+![A phylogeny of 108 mammal species](images/speciesTree.jpg)
 
 ---
 # Preparing gene trees
@@ -116,6 +117,8 @@ We will begin using a demonstration set of MSAs available in the **`alignments`*
 # Examining a multiple sequence alignment with ggmsa
 ## Lens Instrinsic Membrane protein 2 (LIM2) encodes a protein important in lens function and hence vision.
 Which species have the most amino acid changes? Why these species?
+
+[alignments.zip](https://pitt-my.sharepoint.com/:f:/g/personal/nclark_pitt_edu/IgBYR3CPWrWjQZ5mfrloQ8hpARMYAm84WkMXLu786CbPy_g?e=5y5NbH)
 
 [SeaView](https://doua.prabi.fr/software/seaview) alignment program
 
@@ -341,5 +344,3 @@ This analysis illustrates how **RERconverge** leverages convergent phenotypic ev
 
 - Kowalczyk et al. *Genome Biology* (2019)
 - Chikina et al. *PLoS Genetics* (2016)
-- Meredith et al. *Science* (2011)
-
