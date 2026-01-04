@@ -17,6 +17,8 @@ However, many genes will change rates in every species, so our ability to infer 
 One convergent evolutionary example in mammals is the **independent loss of tooth enamel**, which has occurred in multiple lineages including **pangolins**, **anteaters**, **armadillos** and **baleen whales**.
 In this workshop, I demonstrate how to use **`RERconverge`** to identify genes whose evolutionary rates show **convergent shifts** associated with enamel loss. In other published contexts, we have similarly identified genes responding to convergent transitions of mammals to an aquatic and subterranean life, long lifespan, loss of hair, and high altitude.
 
+**`RERconverge` has many functions and features not covered in this lab.
+Full walkthroughs and documentation are available on the [RERconverge GitHub repository](https://github.com/nclark-lab/RERconverge)**
 ---
 
 ## Biological Background
@@ -116,21 +118,20 @@ There are multiple potential sources for orthologous gene MSAs:
 4. Download [Clark lab gene trees](https://github.com/nclark-lab/ComparativeData/wiki). (Alignments also available).
 
 For this lab, we will use a demonstration set of MSAs available in the **`alignments`** directory. [Download alignments.zip here](https://pitt-my.sharepoint.com/:f:/g/personal/nclark_pitt_edu/IgBYR3CPWrWjQZ5mfrloQ8hpARMYAm84WkMXLu786CbPy_g?e=5y5NbH).
-The alignments are in multiple-aligned fasta format `.mfa`. A mostly random set of 4,708 orthologous gene alignments were chosen for speed.  
+The alignments are in multiple-aligned fasta format `.mfa`. A mostly random set of 4,709 orthologous gene alignments were chosen for speed.  
 
 > ## [History of FASTA format](https://en.wikipedia.org/wiki/FASTA#History)  
 > FASTA is pronounced "fast A", and stands for "FAST-All", because it works with any alphabet, an extension of the original "FAST-P" (protein) and "FAST-N" (nucleotide) alignment tools.
 > [Lipman, DJ; Pearson, WR (1985).](https://doi.org/10.1126%2Fscience.2983426)
 
 
-## Examining a multiple sequence alignment in R with `DECIPHER` or in stand-alone program `seaview`.
-Download [SeaView](https://doua.prabi.fr/software/seaview) alignment program. Versions available for all platforms.
-Open `LIM2.mfa` or any multiple-aligned fasta `.mfa` file from `alignments` in `seaview`. Seaview is interactive and can do much more than visualize alignments, such as infer phylogenies.
+## Examining a multiple sequence alignment in R or a stand-alone program.
+The stand-alone alignment program `seaview` works on all platforms. Seaview is interactive and can do more than visualize alignments, such as infer phylogenies.
+Download [SeaView](https://doua.prabi.fr/software/seaview).
+Open `LIM2.mfa` or any `.mfa` file from `alignments`. `LIM2.mfa` is also available in the `alignments_test` directory.  
 
 
-
-
-Alternatively, use DECIPHER in R to export an alignment image to your default webbrowser.
+Alternatively, use the `DECIPHER` package in R to export an alignment image to your default web browser.
 ```{r LIM2 alignment}
 library(Biostrings); library(DECIPHER); # Load required libraries
 alnLIM2 <- readAAStringSet("alignments/LIM2.mfa")
@@ -141,80 +142,72 @@ colors <- c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
 +             `Y`="#9BB896", `V`="#89B9F9")
 BrowseSeqs(alnLIM2,colors=colors,patterns=names(colors))
 ```
-### Lens Instrinsic Membrane protein 2 (LIM2) encodes a protein important in lens function and hence vision.
-Which species have the most amino acid changes? Why these species?
+### Lens Instrinsic Membrane protein 2 (LIM2).
+LIM2 encodes a protein important in lens function and hence vision.
+Which species appear to have the most amino acid changes in otherwise conserved columns? Why these species?
+You can use mammal108phenotypes table to translate genome versions to species common names.
 
 
 ---
 # Calculating branch lengths
-RERconverge includes tree-building functions that perform maximum likelihood branch length estimation given a fixed tree topology and alignments for each sequence of interest. These functions are built directly on [phangorn](https://cran.r-project.org/web/packages/phangorn/index.html) functions `pml` and `optim.pml`, including arguments for parameters passed directly to those functions. For more details on those functions, refer to [phangorn](https://cran.r-project.org/web/packages/phangorn/index.html) documentation.
+RERconverge includes tree-building functions that perform maximum likelihood branch length estimation given a fixed tree topology and alignments for each sequence of interest.
+These functions are built directly on [`phangorn`](https://cran.r-project.org/web/packages/phangorn/index.html) functions `pml` and `optim.pml`, including arguments for parameters passed directly to those functions.
+For more details on those functions, refer to `phangorn` documentation.
 
 ## Input file specification
-Tree building functions require two inputs: a master tree topology and alignments from which to estimate branch lengths.
+Tree building functions require two inputs: a species tree topology and alignments from which to estimate branch lengths.
+The species tree topology is strictly enforced, so all branch lengths are estimated for each gene, but the branching pattern is not inferred. A central assumption of RERconverge and other rates-based approaches is that the orthologous gene groups are all true orthologs.  
+
+One must also name the output trees file in which to place all final trees. The trees file is used as direct input to RERconverge.
+
+Estimating branch lengths for 4,709 genes with ~100 species takes hours, so pre-calculated tree are provided in the `allTrees.tre` file.  
+For practice, run `estimatePhangornTreeAll()` on the `alignments_test` directory. It contains 5 alignments and should finish in a few minutes.
+
+The function `estimatePhangornTreeAll` estimates branch lengths for all sequences included in the specified alignment directory.  This process is relatively slow - for example, it takes a couple minutes per gene to estimate branch lengths for most genes.  The user must specify, at minimum, the alignment director, a master tree file, and a desired output file.  Default function behaviors assume alignments are amino acid sequences in fasta format, and other arguments should be specified for other file and sequence types.
+
+* `alndir`: filepath to the directory that contains alignments.  Alignment format may be any type specifiable to the phangorn `read.phyDat` function (phylip, interleaved, sequential, clustal, fasta, or nexus)
+* `treefile`: filepath to master tree text file in Newick format
+* `output.file`: filepath to desired location to save estimated trees.  Trees are written in Newick format in a single text file, the proper format to supply to the RERconverge `readTrees` function.
+* `format`: string specifying the type of alignment file contained in `alndir`.  Defaults to "fasta", and options include "phylip", "interleaved", "sequential", "clustal", "fasta", and "nexus".
+* `type`: string specifying sequence type, passed on to phangorn function `read.phyDat`.  Defaults to "AA", and options include "DNA", "AA", "CODON", and "USER".
+* `submodel`: string specifying the substitution model to use when estimating tree branch lengths. Defaults to "LG", and options include "JC", "F81", "K80", "HKY", "SYM", and "GTR" - see phangorn documentation for additional options.
+* `...`: other parameters, such as those specifying model fit parameters, are passed on to phangorn functions `pml` and `optim.pml`.
 
 ```{r results='hide', message = FALSE, warning = FALSE}
-
-estimatePhangornTreeAll(alndir=alignmentfn, treefile=mastertreefn, output.file=outputfn)
-
+estimatePhangornTreeAll(alndir="alignments_test" , treefile="speciesTree108.nwk", output.file="treesTest.tre")
 ```
 
+Note that default argument specification is appropriate for amino acid alignments in fasta format and uses the LG substitution model.  This may also be specified by including arguments format="fasta", type="AA", and submodel="LG".
 
----
-
-# Phenotype Definition: Tooth Enamel Loss
-
-**Figure 2. Independent losses of tooth enamel across mammals.**  
-Tooth enamel has been lost independently in several mammalian lineages. These convergent events form the biological basis of this analysis, allowing us to search for genes showing repeated evolutionary rate shifts.
-
-We encode enamel loss as a binary trait:
-
-- **1** = enamel absent
-- **0** = enamel present
-
-```{r phenotype}
-# Binary phenotype vector
-enamelTrait <- c(
-  Homo_sapiens       = 0,
-  Mus_musculus       = 0,
-  Canis_lupus        = 0,
-  Bos_taurus         = 0,
-  Loxodonta_africana = 0,
-  Manis_javanica     = 1,  # pangolin
-  Myrmecophaga_tridactyla = 1,  # anteater
-  Balaenoptera_musculus   = 1   # baleen whale
-  Armadillo = 1 # armadillo
-)
-
-# Ensure correct ordering
-enamelTrait <- enamelTrait[speciesTree$tip.label]
-
-knitr::kable(data.frame(Species = names(enamelTrait), EnamelAbsent = enamelTrait))
-```
+For DNA sequences, the general time reversible model (GTR) is a popular substitution model.  When using `estimatePhangornTreeAll`, specify this model with the arguments type="DNA" and submodel="GTR".
 
 ---
 ## Reading in gene trees with `readTrees`
 
 To run RERconverge, you will first need to supply a file containing **gene trees** for all genes to be included in your analysis. This is a tab delimited file with the following information on each line:
 
-Gene_name Newick_tree
+> Gene_name Newick_tree
 
-Now in R, read in the gene trees. The `useSpecies` input variable can be provided to most RERconverge functions. Excluding one or more species from this vector will exclude them from the analyses. We leave `useSpecies` null here, but you can feed in a list of species you want to limit the trees to if you desire:
+Read in the gene trees using `readTrees()`. The `useSpecies` input variable can be provided to most RERconverge functions to select which species will be used. Excluding one or more species from this vector will exclude them from the analyses. We leave `useSpecies` null here, so all species will be used:
+RERconverge is intended to be used on genome-scale datasets, containing a large number of gene trees with data present for all species. It thus has a minimum number of such gene trees required for `readTrees` to use to estimate a **master tree**; this is set with the `minSpec` option and is 20 by default.
+If your dataset is smaller, you may adjust this or supply your own master tree using the option `masterTree` (this should be a `phylo` object generated using ape's `read.tree`); however, we recommend interpreting results with caution in this case.
+If you want to read in less trees than your whole dataset for time purposes, set the `max.read` argument to however many gene trees you want it to read in.
 
 ```{r, cache = TRUE}
-toytreefile = "subsetMammalGeneTrees.txt" 
-toyTrees=readTrees(paste(rerpath,"/extdata/",toytreefile,sep=""), useSpecies=NULL)
+treesObj = readTrees(file="allTrees.tre" , useSpecies=NULL)
 ```
 
-First, the code tells us that there are 500 items, or gene trees, in the file. Then it says that the maximum number of tips in the gene trees is 62 and, later, it reports that it will use the 71 genes in this set that have data for all 62 species to estimate a **master tree**. The master tree will be used for subsequent analyses.
+The screen output indicates there are 4709 items (gene trees) in the file and that the maximum number of tips in the gene trees is 108. 
+Later, it reports that it will estimate the branch lengths for the background **master tree** using 4709 genes. 
+The master tree will be used as background rate expectations for calculating **relative evolutionary rates**, *i.e.*, **RERs**.
 
-RERconverge is intended to be used on genome-scale datasets, containing a large number of gene trees with data present for all species. It thus has a minimum number of such gene trees required for `readTrees` to use to estimate a **master tree**; this is set with the `minTreesAll` option and is 20 by default. If your dataset is smaller, you may adjust this or supply your own master tree using the option `masterTree` (this should be a `phylo` object generated using ape's `read.tree`); however, we recommend interpreting results with caution in this case. If you want to read in less trees than your whole dataset for time purposes, set the `max.read` argument to however many gene trees you want it to read in.
 
 ---
-## Estimating relative evolutionary rates (RER) with `getAllResiduals`
+## Computing **relative evolutionary rates (RER)** with `getAllResiduals`
 
 The next step is to estimate **relative evolutionary rates**, or RERs, for all branches in the tree for each gene. Intuitively, a gene's RER for a given branch represents how quickly or slowly the gene is evolving on that branch relative to its overall rate of evolution throughout the tree.
 
-Briefly, RERs are calculated by normalizing branch lengths across all trees by the master branch lengths. Branch lengths are then corrected for the heteroskedastic relationship between average branch length and variance using weighted regression. For a more detailed description of how RERs are computed, see [@Chikina2016] and [@Partha2017].
+Briefly, RERs are calculated by normalizing branch lengths across all trees by the master branch lengths. Branch lengths are then corrected for the heteroskedastic relationship between average branch length and variance using weighted regression. For a more detailed description of how RERs are computed, see [Partha et al. MBE 2017](https://academic.oup.com/mbe/article/36/8/1817/5488195).
 
 We will use the `getAllResiduals` function to calculate RERs. This uses the following input variables (all the options set here are also the defaults):
 
@@ -228,44 +221,105 @@ We will use the `getAllResiduals` function to calculate RERs. This uses the foll
 
 Here is the basic method, with the recommended settings:
 
-```{r, cache = TRUE}
-data("logAdultWeightcm")
-mamRERw = getAllResiduals(toyTrees,useSpecies=names(logAdultWeightcm), 
-                          transform = "sqrt", n.pcs = 0, use.weights = T,
-                          weights=NULL,norm="scale")
+```
+rers = getAllResiduals(treesObj, transform = "sqrt", use.weights = T, norm="scale")
 ```
 
-Part of the output of this function tells you that the cutoff is set to 0.05. Any branches shorter than this will be excluded from the analysis. It then  calculates relative evolutionary rates for sets of gene trees.
+Part of the output of this function tells you that the cutoff is set to a value determined from the gene trees. Any branches shorter than this will be excluded from the analysis. It then calculates relative evolutionary rates for sets of gene trees.
 
-The plots generated by this function show the log variance of the RERs resulting from the original method (on the left) and the variance after transformation and weighted regression (on the right). Notice the heteroscedasticity (positive trend between values and their variance) that is present before the new transformation method is applied, is now gone. The x-axis displays bins of branch lengths on the tree, and the y-axis is the (log-scaled) variance in these branch lengths across trees. As you can see by comparing the right plot to the left plot, transforming and performing a weighted regression reduces the relationship between the mean branch length (x-axis) and the variance in branch length (y-axis). You can alter values for `transform`, `n.pcs`, `use.weights`, and `norm` to attempt to optimize heteroskedasticity correction.
+The plots below generated by this function show the log variance of the RERs resulting from the original method (on the left) and the variance after transformation and weighted regression (on the right). Notice the heteroscedasticity (positive trend between values and their variance) that is present before the new transformation method is applied, is now gone. The x-axis displays bins of branch lengths on the tree, and the y-axis is the (log-scaled) variance in these branch lengths across trees. As you can see by comparing the right plot to the left plot, transforming and performing a weighted regression reduces the relationship between the mean branch length (x-axis) and the variance in branch length (y-axis). You can alter values for `transform`, `n.pcs`, `use.weights`, and `norm` to attempt to optimize heteroskedasticity correction.
 
-If you wish to save this RER object for later, you can use R's `saveRDS` function. This will allow you to load it later with `readRDS`, using a different name, if you wish.
+<img src="images/heteroskedasticity.jpg" width=600>
+
+Because it can take time to generate RERs for full-size datasets, save this RER object for later. Use R's `saveRDS` function. This will allow you to load it later with `readRDS`.
 
 ```{r, message = FALSE, cache = TRUE}
-saveRDS(mamRERw, file="mamRERw.rds") 
-newmamRERw = readRDS("mamRERw.rds")
+# Save for now as RDS file
+saveRDS(rers, file="rer_mammal108.rds") 
+
+# Reload quickly at a later time...
+rers = readRDS("mammal108species.rds")
 ```
 
 ---
+## Exploring RERs (relative evolutionary rates)
+A branch RER reflects the result of past selective pressures on the gene over that branch.
+A positive RER indicates that branch had more changes relative to the average expectation and results from a relaxation of constraint relative to other branches, or alternatively from positive selection for amino acid changes.
+A negative RER indicates less change than expected relative to other branches, and results from higher selective constraint, supposedly because the gene was more important for fitness over that branch.  
 
-# Computing Relative Evolutionary Rates (RERs)
+Explore the RERs for Lens intrinsic membrane protein 2 (LIM2).
+The `plotRers` function quickly shows the RERs for all terminal branches -- those that lead to extant species. The vertical ordering is meaningless and is just inverse alphabetical.
+All internal branches of the species tree are stacked at the bottom.  
 
-**Figure 3. Schematic of Relative Evolutionary Rate calculation.**  
-For each gene tree, branch lengths are regressed against the species tree. Residuals from this regression represent relative evolutionary rates, normalized across the phylogeny.
-
-RERconverge calculates **branch-length residuals** for each gene relative to the species tree, producing normalized evolutionary rates.
-
-```{r rers}
-rerResults <- getAllResiduals(
-  geneTrees,
-  speciesTree,
-  min.sp = 5
-)
+Which species have the highest RERs? What characteristic do those species share?  
+Does this make sense for a lens protein?  Which selective regime led to this result?
 ```
+plotRers(rermat=rers, index="LIM2", species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"] )
+```
+<img src="images/rer_LIM2.jpg" width=500>
+
+
+Now explore the PERP gene on your own. PERP encodes a plasma membrane protein crucial for cell-cell adhesion, especially in stratified epithelial tissues like skin.
+PERP and other structural proteins of the skin were shown to be under increased positive selection in aquatic mammals, presumably because they encounter a higher number and diversity of pathogens.  
+
+```
+plotRers(rermat=rers, index="PERP", species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"] )
+```
+
 
 ---
 
-# Association with Enamel Loss
+## Phenotype Definition: Tooth Enamel Loss
+
+Now we will associate variation in these RERs with variation in a **binary trait** across the tree. To do so, we first need to provide information about which branches of the tree have the trait of interest (**foreground branches**). There are several possible ways to do this:
+
+2)  Generate a binary tree from a vector of foreground species using `foreground2Tree`. This uses the following input variables (all the options set here are also the defaults):
+
+-   `clade`: which of the branches within a foreground clade to keep as foreground. Options are "ancestral" to keep only the inferred transition branch, "terminal" to keep only terminal branches, and "all" to keep all branches.
+-   `transition`: whether to allow only transitions to the foreground state ("unidirectional", the default) or both to and from the foreground state ("bidirectional"). Since we are considering transitions to a marine environment, which has only occurred in one direction within mammals, we use "unidirectional" (the default) here.
+-   `weighted`: whether to distribute the "weight" of the foreground specification across all branches within each independent clade (default: FALSE).
+-   `useSpecies`: a vector that can be used to specify a subset of species to use in the analysis. These should be the same species used to estimate RER.
+
+2c) `clade = "all"`: Use maximum parsimony to infer where transitions from background to foreground occurred in the tree, and set those transition lineages, along with all daughter lineages, to foreground.
+
+Teeth in general and tooth enamel has been lost independently in several mammalian lineages. These convergent events form the biological basis of this analysis, allowing us to search for genes showing repeated evolutionary rate shifts.
+
+|common name|phenotype|genome identifier|
+|------|-------|------|
+|blue whale|toothless|HLbalMus1|
+|grey whale|toothless|HLescRob1|
+|minke whale|toothless|balAcu1|
+|tree pangolin|toothless|HLphaTri2|
+|Chinese pangolin|toothless|HLmanPen2|
+|giant anteater|toothless|HLmyrTri1|
+|nine-banded armadillo|no enamel|dasNov3|
+
+### Set foreground species to species with your choice of:
+1. no teeth
+2. no teeth and no enamel
+3. another binary trait (aquatic, subterranean, high altitude...) 
+
+```{r}
+# List your foreground species as genome identifiers in "quotes"
+enamelForeground = c( "balAcu1", ... )
+enamelForeground = c( "HLbalMus1", "HLescRob1", "balAcu1", "HLphaTri2", "HLmanPen2", "HLmyrTri1", "HLmyrTri1", "dasNov3" )
+
+# Create a foreground "trait tree"
+enamelTraitTree = foreground2Tree( enamelForeground, treesObj, clade="all" , weighted=TRUE)
+```
+
+`foreground2Tree` has encoded the trait as a phylogeny, in which the branch lengths indicate the phenotype. 
+Zero branch lengths are background species and non-zero value branches are foreground species carrying the trait.
+We used a `weighted=TRUE` analysis here to balance the influence of each independent trait convergence on the correlations.
+Weights are displayed on foreground branches in the automatically produced trait tree plot.
+
+**Figure 2. Independent losses of teeth and tooth enamel across mammals.**
+<img src="images/traitTeeth.jpg" width=500>
+
+
+---
+
+## Association of branch RERs with Enamel Loss
 
 **Figure 4. Conceptual framework for RER–phenotype association.**  
 Branches corresponding to enamel-less lineages are designated as foreground. Genes whose RERs are consistently elevated or reduced on these branches are inferred to be associated with enamel loss.
