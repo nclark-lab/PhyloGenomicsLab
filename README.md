@@ -316,32 +316,64 @@ Weights are displayed on foreground branches in the automatically produced trait
 **Figure 2. Independent losses of teeth and tooth enamel across mammals.**
 <img src="images/traitTeeth.jpg" width=500>
 
-
 ---
+## Generating **paths** using `tree2Paths` or `foreground2Paths`
 
-## Association of branch RERs with Enamel Loss
+Some of the genes (like BEND3 above) may not have data for all species, meaning that their phylogeny will be a subset of the full phylogeny. To plot RERs for these genes and to correlate them with trait evolution, we run one of two functions that determine how the trait would evolve along all/many possible subsets of the full phylogeny, generating a set of **paths**. The function `tree2Paths` takes a binary tree as input.
 
-**Figure 4. Conceptual framework for RER–phenotype association.**  
-Branches corresponding to enamel-less lineages are designated as foreground. Genes whose RERs are consistently elevated or reduced on these branches are inferred to be associated with enamel loss.
-
-We now test whether evolutionary rates are **systematically correlated** with enamel loss across the phylogeny.
-
-```{r correlation}
-traitResults <- correlateWithBinaryPhenotype(
-  rerResults,
-  enamelTrait,
-  method = "spearman"
-)
-
-# Multiple testing correction
-traitResults$FDR <- p.adjust(traitResults$p.value, method = "fdr")
+```
+# Create a phenotype vector of paths
+phenoEnamel = tree2Paths( enamelTraitTree, treesObj )
 ```
 
 ---
 
-# Significant Genes
+## Association of branch RERs with Enamel Loss
+Now that we have estimates for the RERs for all genes of interest, as well as a representation of how the trait of interest evolves across the tree, we can use `correlateWithBinaryPhenotype` to test for an association between relative evolutionary rate and trait across all branches of the tree.
 
+```
+corEnamel = correlateWithBinaryPhenotype(rers, phenoEnamel, min.sp=10, min.pos=2, weighted="auto" )
+
+# Add column of log-transformed P-values with directional sign of the correlation
+corEnamel$stat = -log10(corEnamel$P) * sign(corEnamel$Rho)
+
+# Add an additional multiple testing correction - False Discovery Rate
+corEnamel$FDR <- p.adjust(corEnamel$P, method = "fdr")
+```
+
+The text displayed shows which correlation method is used to test for association. Here it uses the default for weighted binary traits: a weighted Pearson.
+
+The `correlateWithBinaryPhenotype` function generates a table with the following output for each gene:
+1.  Rho: the correlation between relative evolutionary rate and trait across all branches
+2.  N: the number of branches in the gene tree
+3.  P: an estimate of the P-value for association between relative evolutionary rate and trait.
+4.  p.adj: an estimate of the P-value adjusted for multiple comparisons using the Benjamini-Hochberg procedure (i.e., an estimate of the false discovery rate, or FDR).
+
+Let's take a look at some of the top genes within this set.
+
+```{r, message = FALSE, cache = TRUE}
+head(corEnamel[order(corEnamel$P),])
+
+head(corMarine[order(corMarine$stat, decreasing = TRUE),])
+```
+
+Because we might expect different sets of genes to be in the positively or negatively correlated groups,
+it can be helpful to sort the table by the log-transformed p-values that carry the sign of Rho i.e. the "stat".
+Examining the extreme top or bottom of this sorting shows top positively and negatively correlated genes.
+
+#### For easy viewing and interactive sorting in RStudio use: `View(corEnamel)`
+
+### Significant Genes
 Genes with **FDR < 0.05** are considered significantly associated with enamel loss.
+
+Which interesting genes do you observe? Consult the list of enamel genes in the **Biological Background** and pick a few others to research on your own.
+
+*ACP4* is an interesting genes in the significantly positive-correlated end of the `stat`.
+Let's examine its RER plot:
+
+```plotRers(rers, "ACP4", phenv = phenoEnamel, sortrers = TRUE, species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"])```
+
+<img src="images/rer_ACP4_sorted.jpg" width=500>
 
 ```{r significant-genes}
 significantGenes <- subset(traitResults, FDR < 0.05)
