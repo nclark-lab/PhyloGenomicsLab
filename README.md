@@ -21,6 +21,16 @@ In this workshop, I demonstrate how to use **`RERconverge`** to identify genes w
 Full walkthroughs and documentation are available on the [RERconverge GitHub repository](https://github.com/nclark-lab/RERconverge)**
 ---
 
+# Summary and Learning Objectives
+
+By completing this handout, students should be able to:
+
+- Explain how convergent evolution can be used to infer gene–trait associations
+- Describe how RERconverge computes relative evolutionary rates
+- Interpret correlations between evolutionary rates and binary traits
+
+---
+
 ## Biological Background
 Tooth enamel is the hardest tissue in vertebrates and requires a coordinated developmental program involving genes such as:
 - *ENAM*
@@ -363,28 +373,6 @@ Examining the extreme top or bottom of this sorting shows top positively and neg
 
 #### For easy viewing and interactive sorting in RStudio use: `View(corEnamel)`
 
-### Significant Genes
-Genes with **FDR < 0.05** are considered significantly associated with enamel loss.
-
-Which interesting genes do you observe? Consult the list of enamel genes in the **Biological Background** and pick a few others to research on your own.
-
-*ACP4* is an interesting genes in the significantly positive-correlated end of the `stat`.
-Let's examine its RER plot:
-
-```plotRers(rers, "ACP4", phenv = phenoEnamel, sortrers = TRUE, species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"])```
-
-<img src="images/rer_ACP4_sorted.jpg" width=500>
-
-```{r significant-genes}
-significantGenes <- subset(traitResults, FDR < 0.05)
-
-significantGenes <- significantGenes[
-  order(abs(significantGenes$Rho), decreasing = TRUE),
-]
-
-head(significantGenes)
-```
-
 ---
 
 # Interpretation
@@ -401,33 +389,36 @@ Expected findings include:
 - Enrichment for tooth development and epithelial pathways
 - Evidence of repeated pseudogenization events
 
+
+## Significant Genes
+Genes with **FDR < 0.05** are considered significantly associated with enamel loss.
+
+Which interesting genes do you observe? Consult the list of enamel genes in the **Biological Background** and pick a few others to research on your own.
+
+### *ACP4* is an interesting genes in the significantly positive-correlated end of the `stat`.
+#### Let's examine its RER plot. Here we are sorting the species by RER value with `sortrers` and coloring the foreground clades with `phenv`
+
+`plotRers(rers, "ACP4", phenv = phenoEnamel, sortrers = TRUE, species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"])`
+
+<img src="images/rer_ACP4_sorted.jpg" width=500>
+
+#### Let's now examine the tree of ACP4 itself.  
+The long branches in ACP4 have high RERs because their length is much greater than in the species tree, which uses average divergence across many genes.
+`plot(treesObj$trees$ACP4)`
+
+#### Finally open ACP4's alignment using one of the two methods introduced before.
+
+Questions:
+1. Do you see the abnormally long branch lengths for certain species in ACP4's tree?
+2. In ACP4's alignment, can you see evidence of excess divergence in the armadillo (dasNov3)?
+3. What is the likely cause for the accelerated divergence in this species?
+4. Based on these observations, do you think that ACP4 has other biological functions outside of enamel formation?
+
 ---
+# Functional Enrichment of Top Genes
 
-# Visualization (Optional)
-
-```{r visualization, eval=FALSE}
-# Plot RERs for a candidate gene
-plotRers(
-  rerResults[["ENAM"]],
-  speciesTree,
-  enamelTrait,
-  main = "Relative Evolutionary Rates of ENAM"
-)
-```
 
 ---
-
-# Summary and Learning Objectives
-
-By completing this handout, students should be able to:
-
-- Explain how convergent evolution can be used to infer gene–trait associations
-- Describe how RERconverge computes relative evolutionary rates
-- Interpret correlations between evolutionary rates and binary traits
-- Critically evaluate biological conclusions from comparative genomics analyses
-
----
-
 # Conclusions
 
 This analysis illustrates how **RERconverge** leverages convergent phenotypic evolution to identify genes underlying complex traits. Tooth enamel loss provides a clear, biologically interpretable example where evolutionary rate shifts reflect repeated relaxation of developmental constraints.
