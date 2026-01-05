@@ -304,7 +304,7 @@ Teeth in general and tooth enamel has been lost independently in several mammali
 |giant anteater|toothless|HLmyrTri1|
 |aardvark|no enamel|oryAfe1|
 |nine-banded armadillo|no enamel|dasNov3|
-|tw-toed sloth|no enamel|HLchoDid2|
+|two-toed sloth|no enamel|HLchoDid2|
 
 ### Set foreground species to species with your choice of:
 1. no teeth
