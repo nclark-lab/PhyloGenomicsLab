@@ -465,7 +465,7 @@ We employed this in our study of hair in [Kowalczyk, Chikina, & Clark. *eLife* 2
 Try variations of the enrichment analysis, such as different numbers of top genes, different ontologies, or the ranked list choice in Step 2.
 
 ---
-## You can also try [RERconverge's gene set enrichment analysis]("https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md")
+## You can also try [RERconverge's gene set enrichment analysis](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md)
 Enrichment analysis in RERconverge can be customized and fine-tuned for your study.
 It also accepts any annotations, even for non-model organisms, including custom annotations in a simple format.
 Learn how to use it in this [lab extension](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md).
@@ -492,9 +492,9 @@ To learn more about comparative genomics approaches, consider the following exte
 
 <img src="images/lifespan.jpg" width=400>
 
-If you've finished binary trait analysis, you can explore RERconverge's pipeline to study more complex traits with its [continuous trait analysis]("https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/continuous_traits.md") capabilities.
+If you've finished binary trait analysis, you can explore RERconverge's pipeline to study more complex traits with its [continuous trait analysis](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/continuous_traits.md) capabilities.
 
-In the [continous trait lab]("https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/continuous_traits.md"), you will use your mammalian dataset to explore lifespan and the genes that change their selective regimes in long-lived *versus* short-lived species.
+In the [continous trait lab](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/continuous_traits.md), you will use your mammalian dataset to explore lifespan and the genes that change their selective regimes in long-lived *versus* short-lived species.
 A similar study is reported in [Kowalczyk et al. *eLife* 2020](https://elifesciences.org/articles/51089).
 
 
@@ -502,6 +502,7 @@ A similar study is reported in [Kowalczyk et al. *eLife* 2020](https://elifescie
 ## Postive selection on foreground branches
 [BUSTED-PH](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) (PH for "phenotype") is a set of likelihood models composed to specifically test for positive selection on foreground branches, but also to differentiate that from any positive selection (if present) on background branches as well.
 By considering the background branches, BUSTED-PH can identify genes that are uniquely under positive selection during a foreground-specific event, thus making much sharper conclusions than previous branch-site *d*~N~/*d*~S~ models.
+The [BUSTED-PH GitHub](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) has full tutorial and documentation.
 
 
 ---
