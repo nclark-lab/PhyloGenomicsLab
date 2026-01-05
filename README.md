@@ -87,7 +87,7 @@ More than 400 mammalian species genomes are available today, the workshop uses a
 Read in the phenotypes table and examine the species using `read.csv()` and `View()` (only available in RStudio).
 
 ```
-mammal108phenotypes <- read.table("mammal108phenotypes.tsv", header=TRUE, sep="\t")
+mammal108phenotypes = read.table("mammal108phenotypes.tsv", header=TRUE, sep="\t")
 View(mammal108phenotypes)
 ```
 
@@ -101,15 +101,15 @@ This tree represents the shared evolutionary history of the mammalian taxa inclu
 
 ```{r species-tree}
 # Load the species tree
-speciesTree <- read.tree("speciesTree108.nwk")
+speciesTree = read.tree("speciesTree108.nwk")
 
 # Plot tree basic, with genome version names
 par(mar=c(1,1,2,1)+0.1) # Change margin to make title fit.
 plot(speciesTree, cex=0.5, edge.width = 0.5, main="Mammalian Species Tree", align.tip.label=F)
 
 # Plot tree, with common names
-speciesTreeCommon <- speciesTree
-speciesTreeCommon$tip.label <- mammal108phenotypes[speciesTreeCommon$tip.label,"common_name"]
+speciesTreeCommon = speciesTree
+speciesTreeCommon$tip.label = mammal108phenotypes[speciesTreeCommon$tip.label,"common_name"]
 plot(speciesTreeCommon, cex=0.5, edge.width = 0.5, main="Mammalian Species Tree", align.tip.label=F)
 
 ```
@@ -144,8 +144,8 @@ Open `LIM2.mfa` or any `.mfa` file from `alignments`. `LIM2.mfa` is also availab
 Alternatively, use the `DECIPHER` package in R to export an alignment image to your default web browser.
 ```{r LIM2 alignment}
 library(Biostrings); library(DECIPHER); # Load required libraries
-alnLIM2 <- readAAStringSet("alignments/LIM2.mfa")
-colors <- c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
+alnLIM2 = readAAStringSet("alignments/LIM2.mfa")
+colors = c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
 +             `D`="#FD5559", `C`="#12C7FE", `Q`="#DDACB4", `E`="#FEA097", `G`="#F46802",
 +             `H`="#FCA708", `I`="#369BD9", `L`="#2E95EC", `K`="#CF7690", `M`="#4B8EFE",
 +             `F`="#76997D", `P`="#FD2AE3", `S`="#A08A9A", `T`="#9A84D5", `W`="#74C80D",
@@ -213,7 +213,7 @@ The master tree will be used as background rate expectations for calculating **r
 
 
 ---
-## Computing **relative evolutionary rates (RER)** with `getAllResiduals`
+# Computing **relative evolutionary rates (RER)** with `getAllResiduals`
 
 The next step is to estimate **relative evolutionary rates**, or RERs, for all branches in the tree for each gene. Intuitively, a gene's RER for a given branch represents how quickly or slowly the gene is evolving on that branch relative to its overall rate of evolution throughout the tree.
 
@@ -279,7 +279,7 @@ plotRers(rermat=rers, index="PERP", species_from = rownames(mammal108phenotypes)
 
 ---
 
-## Phenotype Definition: Tooth Enamel Loss
+# Phenotype Definition: Tooth Enamel Loss
 
 Now we will associate variation in these RERs with variation in a **binary trait** across the tree. To do so, we first need to provide information about which branches of the tree have the trait of interest (**foreground branches**). There are several possible ways to do this:
 
@@ -338,6 +338,7 @@ phenoEnamel = tree2Paths( enamelTraitTree, treesObj )
 
 ---
 
+# Binary Trait Analysis
 ## Association of branch RERs with Enamel Loss
 Now that we have estimates for the RERs for all genes of interest, as well as a representation of how the trait of interest evolves across the tree, we can use `correlateWithBinaryPhenotype` to test for an association between relative evolutionary rate and trait across all branches of the tree.
 
@@ -348,7 +349,7 @@ corEnamel = correlateWithBinaryPhenotype(rers, phenoEnamel, min.sp=10, min.pos=2
 corEnamel$stat = -log10(corEnamel$P) * sign(corEnamel$Rho)
 
 # Add an additional multiple testing correction - False Discovery Rate
-corEnamel$FDR <- p.adjust(corEnamel$P, method = "fdr")
+corEnamel$FDR = p.adjust(corEnamel$P, method = "fdr")
 ```
 
 The text displayed shows which correlation method is used to test for association. Here it uses the default for weighted binary traits: a weighted Pearson.
@@ -398,15 +399,23 @@ Which interesting genes do you observe? Consult the list of enamel genes in the 
 ### *ACP4* is an interesting genes in the significantly positive-correlated end of the `stat`.
 #### Let's examine its RER plot. Here we are sorting the species by RER value with `sortrers` and coloring the foreground clades with `phenv`
 
-`plotRers(rers, "ACP4", phenv = phenoEnamel, sortrers = TRUE, species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"])`
+```
+plotRers(rers, "ACP4", phenv = phenoEnamel, sortrers = TRUE, species_from = rownames(mammal108phenotypes), species_to = mammal108phenotypes[,"common_name"])
+```
 
 <img src="images/rer_ACP4_sorted.jpg" width=500>
 
 #### Let's now examine the tree of ACP4 itself.  
 The long branches in ACP4 have high RERs because their length is much greater than in the species tree, which uses average divergence across many genes.
-`plot(treesObj$trees$ACP4)`
+```
+plot(treesObj$trees$ACP4, cex=0.5)
+```
+<img src="images/tree_ACP4.jpg" width=400>
 
 #### Finally open ACP4's alignment using one of the two methods introduced before.
+Here's a small portion of ACP4 for a few species. The 2 pangolins are highlighted.
+
+<img src="images/ACP4_excerpt.png" width=800>
 
 Questions:
 1. Do you see the abnormally long branch lengths for certain species in ACP4's tree?
@@ -415,13 +424,84 @@ Questions:
 4. Based on these observations, do you think that ACP4 has other biological functions outside of enamel formation?
 
 ---
-# Functional Enrichment of Top Genes
+# Gene Set Enrichment Analysis
+A common downstream analysis in genomics to to ask which gene annotations are enriched among the top-scoring genes.
+Enriched functions, pathwyas, or molecular characteristics help us make sense of what we have discovered at a higher level than single genes.
+It can also help us to not over-interpret the significance result of a single gene when making our final conclusions with the best possible consideration.  
+
+There are many enrichment analysis programs available. We will use a simple web-based tool, [GOrilla](https://cbl-gorilla.cs.technion.ac.il/), which operates on Gene Ontology annotation terms.
+
+## Deriving a ranked gene list
+
+We will perform our enrichment on Rho-signed negative log p-values from our correlation results. 
+The *getStat* function converts our correlation results to these values, removes NA values, and returns a named numeric vector where names correspond to rownames from the correlation results (in this case, gene names).
+We then write this to a file "ranked_enamel_genes.txt" containing all genes listed from highest rate acceleration in species without enamel to the lowest deceleration.
+
+```
+stats = getStat(corEnamel)
+write( names( sort(stats, decreasing = TRUE) ), "ranked_enamel_genes.txt" )
+```
+
+Use this ranked list of genes for import into [GOrilla](https://cbl-gorilla.cs.technion.ac.il/).
+
+- Step 1: Choose "Homo sapiens"
+- Step 2: Choose "Two unranked lists"
+- Step 3: Into the "Target set" paste in the top ~10 to ~100 genes from `stats.txt` (your choice)
+          Into "Background set" paste the entire gene list
+- Step 4: Choose ontology: "Process"
+
+The output shows with Gene Ontology Biological Processes were enriched in your top N genes.
+Pay attention to the table at the bottom of the page, its term **Descriptions**, **P-values** and **Enrichment** factors. There are nice explanations of the output below the table.  
+Remember that we are operating on a random subset of the genome, and statistical power will be better with the entire genome.  
+
+Do the categories you see make sense?  
+
+Which do not make sense? Could you offer an explanation?
+In our study of this trait, it is important to account for traits that are coincidental in these species.
+The major example being the loss of body hair in the whales, pangolins, and armadillo, which makes certain hair proteins like keratins appear accelerated in this study as well.
+The solution to these competing convergent traits is to weigh evidence for each alternative hypothesis (hair...) for each gene using **Bayes Factors**.
+We employed this in our study of hair in [Kowalczyk, Chikina, & Clark. *eLife* 2022](https://elifesciences.org/articles/76911), in which each gene was sorted into the best fitting convergent trait.
+
+Try variations of the enrichment analysis, such as different numbers of top genes, different ontologies, or the ranked list choice in Step 2.
+
+---
+## You can also try [RERconverge's gene set enrichment analysis]("lab_docs/enrichment_analysis.md")
+Enrichment analysis in RERconverge can be customized and fine-tuned for your study.
+It also accepts any annotations, even for non-model organisms, including custom annotations in a simple format.
 
 
 ---
 # Conclusions
 
-This analysis illustrates how **RERconverge** leverages convergent phenotypic evolution to identify genes underlying complex traits. Tooth enamel loss provides a clear, biologically interpretable example where evolutionary rate shifts reflect repeated relaxation of developmental constraints.
+This analysis illustrates how **RERconverge** leverages convergent phenotypic evolution to identify genes underlying complex traits. 
+Tooth enamel loss provides a clear, biologically interpretable example where evolutionary rate shifts reflect repeated relaxation of developmental constraints.
+
+Which traits would you like to examine?
+
+This lab studies the loss of a trait, which usually produces accelerations of key genes due to relaxed constraint or even pseudogenization.
+What is an example of a trait that required adaptive changes instead?
+
+
+---
+# Extensions
+To learn more about comparative genomics approaches, consider the following extensions into continuous traits using **RERconverge** and *d*~N~/*d*~S~-based analysis of positive selection on foreground species using **BUSTED-PH**.
+
+---
+## Continuous Trait Analysis -- Long lifespan in Mammals
+
+<img src="images/lifespan.jpg" width=600>
+
+If you've finished binary trait analysis, you can explore RERconverge's pipeline to study more complex traits with its [continuous trait analysis]("lab_docs/continuous_traits.md") capabilities.
+
+In the [continous trait lab]("lab_docs/continuous_traits.md"), you will use your mammalian dataset to explore lifespan and the genes that change their selective regimes in long-lived *versus* short-lived species.
+A similar study is reported in [Kowalczyk et al. *eLife* 2020](https://elifesciences.org/articles/51089).
+
+
+---
+## Postive selection on foreground branches
+[BUSTED-PH](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) (PH for "phenotype") is a set of likelihood models composed to specifically test for positive selection on foreground branches, but also to differentiate that from any positive selection (if present) on background branches as well.
+By considering the background branches, BUSTED-PH can identify genes that are uniquely under positive selection during a foreground-specific event, thus making much sharper conclusions than previous branch-site *d*~N~/*d*~S~ models.
+
 
 ---
 
