@@ -14,7 +14,7 @@ Finally, if positively selected changes to a gene accompany changing conditions 
 Thus, studying shifts in relative evolutionary rates (RERs) between species can reveal genes which are responding to selective pressures.
 However, many genes will change rates in every species, so our ability to infer such connections relies on repeated evolutionary events, convergent evolution, so that we can associate a gene's shift with a specific selective pressure, phenotype, or environmental change.
 
-One convergent evolutionary example in mammals is the **independent loss of tooth enamel**, which has occurred in multiple lineages including **pangolins**, **anteaters**, **armadillos** and **baleen whales**.
+One convergent evolutionary example in mammals is the **independent loss of tooth enamel**, which has occurred in multiple lineages including **pangolins**, **aardvarks**, **anteaters**, **armadillos**, **sloths** and **baleen whales**.
 In this workshop, I demonstrate how to use **`RERconverge`** to identify genes whose evolutionary rates show **convergent shifts** associated with enamel loss. In other published contexts, we have similarly identified genes responding to convergent transitions of mammals to an aquatic and subterranean life, long lifespan, loss of hair, and high altitude.
 
 **`RERconverge` has many functions and features not covered in this lab.
@@ -302,7 +302,9 @@ Teeth in general and tooth enamel has been lost independently in several mammali
 |tree pangolin|toothless|HLphaTri2|
 |Chinese pangolin|toothless|HLmanPen2|
 |giant anteater|toothless|HLmyrTri1|
+|aardvark|no enamel|oryAfe1|
 |nine-banded armadillo|no enamel|dasNov3|
+|tw-toed sloth|no enamel|HLchoDid2|
 
 ### Set foreground species to species with your choice of:
 1. no teeth
@@ -311,8 +313,7 @@ Teeth in general and tooth enamel has been lost independently in several mammali
 
 ```{r}
 # List your foreground species as genome identifiers in "quotes"
-enamelForeground = c( "balAcu1", ... )
-enamelForeground = c( "HLbalMus1", "HLescRob1", "balAcu1", "HLphaTri2", "HLmanPen2", "HLmyrTri1", "HLmyrTri1", "dasNov3" )
+enamelForeground = c( "HLbalMus1", "HLescRob1", "balAcu1", "HLphaTri2", "HLmanPen2", "HLmyrTri1", "oryAfe1", "dasNov3", "HLchoDid2" )
 
 # Create a foreground "trait tree"
 enamelTraitTree = foreground2Tree( enamelForeground, treesObj, clade="all" , weighted=TRUE)
@@ -324,7 +325,7 @@ We used a `weighted=TRUE` analysis here to balance the influence of each indepen
 Weights are displayed on foreground branches in the automatically produced trait tree plot.
 
 **Figure 2. Independent losses of teeth and tooth enamel across mammals.**
-<img src="images/traitTeeth.jpg" width=500>
+<img src="images/traitEnamel.jpg" width=500>
 
 ---
 ## Generating **paths** using `tree2Paths` or `foreground2Paths`
@@ -365,7 +366,7 @@ Let's take a look at some of the top genes within this set.
 ```{r, message = FALSE, cache = TRUE}
 head(corEnamel[order(corEnamel$P),])
 
-head(corMarine[order(corMarine$stat, decreasing = TRUE),])
+head(corEnamel[order(corEnamel$stat, decreasing = TRUE),])
 ```
 
 Because we might expect different sets of genes to be in the positively or negatively correlated groups,
@@ -445,9 +446,8 @@ write( names( sort(stats, decreasing = TRUE) ), "ranked_enamel_genes.txt" )
 Use this ranked list of genes for import into [GOrilla](https://cbl-gorilla.cs.technion.ac.il/).
 
 - Step 1: Choose "Homo sapiens"
-- Step 2: Choose "Two unranked lists"
-- Step 3: Into the "Target set" paste in the top ~10 to ~100 genes from `stats.txt` (your choice)
-          Into "Background set" paste the entire gene list
+- Step 2: Choose "Single ranked list of genes"
+- Step 3: Paste in your ranked list from file "ranked_enamel_genes.txt"
 - Step 4: Choose ontology: "Process"
 
 The output shows with Gene Ontology Biological Processes were enriched in your top N genes.
@@ -458,9 +458,9 @@ Do the categories you see make sense?
 
 Which do not make sense? Could you offer an explanation?
 In our study of this trait, it is important to account for traits that are coincidental in these species.
-The major example being the loss of body hair in the whales, pangolins, and armadillo, which makes certain hair proteins like keratins appear accelerated in this study as well.
-The solution to these competing convergent traits is to weigh evidence for each alternative hypothesis (hair...) for each gene using **Bayes Factors**.
-We employed this in our study of hair in [Kowalczyk, Chikina, & Clark. *eLife* 2022](https://elifesciences.org/articles/76911), in which each gene was sorted into the best fitting convergent trait.
+The major example being the loss of body hair in the whales, pangolins, and armadillo, which makes certain hair and skin proteins like keratins appear accelerated in this study as well! For example, in the processes of "cornification", "keratinization", and related terms.
+The solution to these competing convergent traits is to weigh evidence for each alternative hypothesis (hair...) for each gene using **Bayes Factors**, and assign each gene to the best fitting convergent trait.
+We employed this in our study of hair in [Kowalczyk, Chikina, & Clark. *eLife* 2022](https://elifesciences.org/articles/76911).
 
 Try variations of the enrichment analysis, such as different numbers of top genes, different ontologies, or the ranked list choice in Step 2.
 
@@ -509,11 +509,14 @@ The [BUSTED-PH GitHub](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-
 
 # Reading
 
+### Review of phyloGenomics as applied to adaptive and convergent evolution
+- [Clark, Kowalczyk, Kopania & Chikina. 2025 *Ann Rev Genetics* Phylogenomic Approaches to Study Adaptive Evolution in Mammals: From Aging to Aquatic Lifestyles](https://www.annualreviews.org/content/journals/10.1146/annurev-genet-030325-041233)
+
+### Studies demonstrating and explaning RERconverge rates-based analysis
 - [Chkina et al. 2016 *MBE* Hundreds of genes experienced convergent shifts in selective pressure in marine mammals](https://academic.oup.com/mbe/article/33/9/2182/2579331)
 - [Partha et al. 2017 *eLife* Subterranean mammals show convergent regression in ocular genes and enhancers, along with adaptation to tunneling](https://elifesciences.org/articles/25884)
 - [Partha et al. 2019 *MBE* Robust method for detecting convergent shifts in evolutionary rates](https://academic.oup.com/mbe/article/36/8/1817/5488195)
 - [Kowalczyk et al. 2020 *eLife* Pan-mammalian analysis of molecular constraints underlying extended lifespan](https://elifesciences.org/articles/51089)
 - [Kowalczyk et al. 2022 *eLife* Complementary evolution of coding and noncoding sequence underlies mammalian hairlessness](https://elifesciences.org/articles/76911)
-- [Clark, Kowalczyk, Kopania & Chikina. 2025 *Ann Rev Genetics* Phylogenomic Approaches to Study Adaptive Evolution in Mammals: From Aging to Aquatic Lifestyles](https://www.annualreviews.org/content/journals/10.1146/annurev-genet-030325-041233)
 
 
