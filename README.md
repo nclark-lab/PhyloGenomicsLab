@@ -489,7 +489,7 @@ To learn more about comparative genomics approaches, consider the following exte
 ---
 ## Continuous Trait Analysis -- Long lifespan in Mammals
 
-<img src="images/lifespan.jpg" width=600>
+<img src="images/lifespan.jpg" width=400>
 
 If you've finished binary trait analysis, you can explore RERconverge's pipeline to study more complex traits with its [continuous trait analysis]("lab_docs/continuous_traits.md") capabilities.
 
