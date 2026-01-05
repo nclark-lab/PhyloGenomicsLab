@@ -465,9 +465,10 @@ We employed this in our study of hair in [Kowalczyk, Chikina, & Clark. *eLife* 2
 Try variations of the enrichment analysis, such as different numbers of top genes, different ontologies, or the ranked list choice in Step 2.
 
 ---
-## You can also try [RERconverge's gene set enrichment analysis]("lab_docs/enrichment_analysis.md")
+## You can also try [RERconverge's gene set enrichment analysis]("https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md")
 Enrichment analysis in RERconverge can be customized and fine-tuned for your study.
 It also accepts any annotations, even for non-model organisms, including custom annotations in a simple format.
+Learn how to use it in this [lab extension](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md).
 
 
 ---
@@ -491,9 +492,9 @@ To learn more about comparative genomics approaches, consider the following exte
 
 <img src="images/lifespan.jpg" width=400>
 
-If you've finished binary trait analysis, you can explore RERconverge's pipeline to study more complex traits with its [continuous trait analysis]("lab_docs/continuous_traits.md") capabilities.
+If you've finished binary trait analysis, you can explore RERconverge's pipeline to study more complex traits with its [continuous trait analysis]("https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/continuous_traits.md") capabilities.
 
-In the [continous trait lab]("lab_docs/continuous_traits.md"), you will use your mammalian dataset to explore lifespan and the genes that change their selective regimes in long-lived *versus* short-lived species.
+In the [continous trait lab]("https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/continuous_traits.md"), you will use your mammalian dataset to explore lifespan and the genes that change their selective regimes in long-lived *versus* short-lived species.
 A similar study is reported in [Kowalczyk et al. *eLife* 2020](https://elifesciences.org/articles/51089).
 
 
@@ -505,8 +506,13 @@ By considering the background branches, BUSTED-PH can identify genes that are un
 
 ---
 
-# References
+# Reading
 
-- Kowalczyk et al. *Genome Biology* (2019)
-- Chikina et al. *PLoS Genetics* (2016)
+- [Chkina et al. 2016 *MBE* Hundreds of genes experienced convergent shifts in selective pressure in marine mammals](https://academic.oup.com/mbe/article/33/9/2182/2579331)
+- [Partha et al. 2017 *eLife* Subterranean mammals show convergent regression in ocular genes and enhancers, along with adaptation to tunneling](https://elifesciences.org/articles/25884)
+- [Partha et al. 2019 *MBE* Robust method for detecting convergent shifts in evolutionary rates](https://academic.oup.com/mbe/article/36/8/1817/5488195)
+- [Kowalczyk et al. 2020 *eLife* Pan-mammalian analysis of molecular constraints underlying extended lifespan](https://elifesciences.org/articles/51089)
+- [Kowalczyk et al. 2022 *eLife* Complementary evolution of coding and noncoding sequence underlies mammalian hairlessness](https://elifesciences.org/articles/76911)
+- [Clark, Kowalczyk, Kopania. 2025 *Ann Rev Genetics* Phylogenomic Approaches to Study Adaptive Evolution in Mammals: From Aging to Aquatic Lifestyles](https://www.annualreviews.org/content/journals/10.1146/annurev-genet-030325-041233)
+
 
