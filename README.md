@@ -514,6 +514,6 @@ The [BUSTED-PH GitHub](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-
 - [Partha et al. 2019 *MBE* Robust method for detecting convergent shifts in evolutionary rates](https://academic.oup.com/mbe/article/36/8/1817/5488195)
 - [Kowalczyk et al. 2020 *eLife* Pan-mammalian analysis of molecular constraints underlying extended lifespan](https://elifesciences.org/articles/51089)
 - [Kowalczyk et al. 2022 *eLife* Complementary evolution of coding and noncoding sequence underlies mammalian hairlessness](https://elifesciences.org/articles/76911)
-- [Clark, Kowalczyk, Kopania. 2025 *Ann Rev Genetics* Phylogenomic Approaches to Study Adaptive Evolution in Mammals: From Aging to Aquatic Lifestyles](https://www.annualreviews.org/content/journals/10.1146/annurev-genet-030325-041233)
+- [Clark, Kowalczyk, Kopania & Chikina. 2025 *Ann Rev Genetics* Phylogenomic Approaches to Study Adaptive Evolution in Mammals: From Aging to Aquatic Lifestyles](https://www.annualreviews.org/content/journals/10.1146/annurev-genet-030325-041233)
 
 
