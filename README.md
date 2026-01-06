@@ -527,9 +527,9 @@ A similar study is reported in [Kowalczyk et al. *eLife* 2020](https://elifescie
 
 ---
 ## Postive selection on foreground branches  
-[BUSTED-PH](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) (PH for "phenotype") is a set of likelihood models composed to specifically test for positive selection on foreground branches, but also to differentiate that from any positive selection (if present) on background branches as well.
+[BUSTED-PH](https://github.com/veg/hyphy-readmes/tree/master/busted-ph) (PH for "phenotype") is a set of likelihood models composed to specifically test for positive selection on foreground branches, but also to differentiate that from any positive selection (if present) on background branches as well.
 By considering the background branches, BUSTED-PH can identify genes that are uniquely under positive selection during a foreground-specific event, thus making much sharper conclusions than previous branch-site *d*~N~/*d*~S~ models.
-The [BUSTED-PH GitHub](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) has full tutorial and documentation.
+The [BUSTED-PH GitHub](https://github.com/veg/hyphy-readmes/tree/master/busted-ph) has full tutorial and documentation.
 
 
 ---
