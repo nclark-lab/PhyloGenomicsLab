@@ -6,7 +6,7 @@
 ### 2026 January 21
 ---
 
-## Overview
+## Overview  
 
 Convergent evolution provides a powerful natural experiment for identifying the genetic basis of complex traits. Selective pressures are constantly shifting and their action on individual genes changes over evolutionary time as species encounter new conditions.
 As a particular gene becomes more important for fitness, its evolutionary rate will slow due to increased constraint and rejection of nearly neutral mutations. Conversely, if a gene is less important its rate will increase as some deleterious mutations fix in the species.
@@ -21,7 +21,7 @@ In this workshop, I demonstrate how to use **`RERconverge`** to identify genes w
 Full walkthroughs and documentation are available on the [RERconverge GitHub repository](https://github.com/nclark-lab/RERconverge)**
 ---
 
-# Summary and Learning Objectives
+# Summary and Learning Objectives  
 
 By completing this handout, students should be able to:
 
@@ -31,7 +31,7 @@ By completing this handout, students should be able to:
 
 ---
 
-## Biological Background
+## Biological Background  
 Tooth enamel is the hardest tissue in vertebrates and requires a coordinated developmental program involving genes such as:
 - *ENAM*
 - *AMELX*
@@ -44,7 +44,8 @@ Tooth enamel is the hardest tissue in vertebrates and requires a coordinated dev
 Lineages that no longer form mineralized teeth often exhibit **relaxed selection** or **pseudogenization** of these genes. RERconverge allows us to detect these patterns genome-wide by searching for those genes that consistently accelerate their RERs in toothless or enameless species.
 
 ---
-## Data Requirements
+
+## Data Requirements  
 
 This study requires:
 1. A **species phylogeny** covering all taxa of interest
@@ -54,9 +55,9 @@ This study requires:
 All trees are assumed to be in *Newick format*.
 
 ---
-### Load or Install [R](https://www.r-project.org/) and [R Studio](https://posit.co/download/rstudio-desktop/)
+### Load or Install [R](https://www.r-project.org/) and [R Studio](https://posit.co/download/rstudio-desktop/)  
 
-### Install packages (run once)
+### Install packages (run once)  
 ```{install r libraries}
 install.packages("devtools")
 install.packages("ape")
@@ -73,7 +74,8 @@ devtools::install_github("nclark-lab/RERconverge")
 ```
 
 ---
-### Load Required Libraries
+
+### Load Required Libraries  
 
 ```{r libraries}
 # Load RERconverge package. Dependencies will load automatically.
@@ -81,7 +83,9 @@ library(RERconverge)
 ```
 
 ---
-## 108 mammalian species in the study
+
+## 108 mammalian species in the study  
+
 More than 400 mammalian species genomes are available today, the workshop uses a carefully chosen set of ~100 to improve runtime and to contain specific phenotypes for this study.
 Read in the phenotypes table and examine the species using `read.csv()` and `View()` (only available in RStudio).
 
@@ -90,7 +94,7 @@ mammal108phenotypes = read.table("mammal108phenotypes.tsv", header=TRUE, sep="\t
 View(mammal108phenotypes)
 ```
 
-## Species Phylogeny
+## Species Phylogeny  
 
 **Mammalian species phylogeny used for RERconverge analysis.**  
 Load and visualize the 108 mammal species tree we will use for the workshop.
@@ -115,7 +119,8 @@ plot(speciesTreeCommon, cex=0.5, edge.width = 0.5, main="Mammalian Species Tree"
 <img src="images/speciesTree.jpg" width="500">
 
 ---
-# Preparing gene trees
+# Preparing gene trees  
+
 Next, the study requires multiple sequence alignments (MSAs) of many orthologous gene sets from the common set of species  in the species phylogeny.
 Not all species are required for each gene, RERconverge can handle sparse data, since orthologous gene sets always experience gains and losses naturally.
 
@@ -128,12 +133,14 @@ There are multiple potential sources for orthologous gene MSAs:
 **For this lab**, we will use a demonstration set of MSAs available in the **`alignments`** directory. [Download alignments.zip here](https://pitt-my.sharepoint.com/:f:/g/personal/nclark_pitt_edu/IgBYR3CPWrWjQZ5mfrloQ8hpARMYAm84WkMXLu786CbPy_g?e=5y5NbH).
 The alignments are in multiple-aligned fasta format `.mfa`. A mostly random set of 4,709 orthologous gene alignments were chosen for speed.  
 
+
 > ## [History of FASTA format](https://en.wikipedia.org/wiki/FASTA#History)  
 > FASTA is pronounced "fast A", and stands for "FAST-All", because it works with any alphabet, an extension of the original "FAST-P" (protein) and "FAST-N" (nucleotide) alignment tools.
-> [Lipman, DJ; Pearson, WR (1985).](https://doi.org/10.1126%2Fscience.2983426)
+> [Lipman, DJ; Pearson, WR (1985).](https://doi.org/10.1126%2Fscience.2983426)  
 
 
-## Examining a multiple sequence alignment in R or a stand-alone program.
+## Examining a multiple sequence alignment in R or a stand-alone program.  
+
 The stand-alone alignment program `seaview` works on all platforms. Seaview is interactive and can do more than visualize alignments, such as infer phylogenies.
 Download [SeaView](https://doua.prabi.fr/software/seaview).
 Open `LIM2.mfa` or any `.mfa` file from `alignments`. `LIM2.mfa` is also available in the `alignments_test` directory.  
@@ -150,19 +157,23 @@ colors = c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
 +             `Y`="#9BB896", `V`="#89B9F9")
 BrowseSeqs(alnLIM2,colors=colors,patterns=names(colors))
 ```
-### Lens Instrinsic Membrane protein 2 (LIM2).
+### Lens Instrinsic Membrane protein 2 (LIM2).  
 LIM2 encodes a protein important in lens function and hence vision.
 Which species appear to have the most amino acid changes in otherwise conserved columns? Why these species?
 You can use mammal108phenotypes table to translate genome versions to species common names.
 
 
 ---
-# Calculating branch lengths
+
+# Calculating branch lengths  
+
 RERconverge includes tree-building functions that perform maximum likelihood branch length estimation given a fixed tree topology and alignments for each sequence of interest.
 These functions are built directly on [`phangorn`](https://cran.r-project.org/web/packages/phangorn/index.html) functions `pml` and `optim.pml`, including arguments for parameters passed directly to those functions.
 For more details on those functions, refer to `phangorn` documentation.
 
-## Input file specification
+
+## Input file specification  
+
 Tree building functions require two inputs: a species tree topology and alignments from which to estimate branch lengths.
 The species tree topology is strictly enforced, so all branch lengths are estimated for each gene, but the branching pattern is not inferred. A central assumption of RERconverge and other rates-based approaches is that the orthologous gene groups are all true orthologs.  
 
@@ -190,7 +201,8 @@ Note that default argument specification is appropriate for amino acid alignment
 For DNA sequences, the general time reversible model (GTR) is a popular substitution model.  When using `estimatePhangornTreeAll`, specify this model with the arguments type="DNA" and submodel="GTR".
 
 ---
-## Reading in gene trees with `readTrees`
+
+## Reading in gene trees with `readTrees`  
 
 To run RERconverge, you will first need to supply a file containing **gene trees** for all genes to be included in your analysis. This is a tab delimited file with the following information on each line:
 
@@ -211,7 +223,8 @@ The master tree will be used as background rate expectations for calculating **r
 
 
 ---
-# Computing **relative evolutionary rates (RER)** with `getAllResiduals`
+
+# Computing **relative evolutionary rates (RER)** with `getAllResiduals`  
 
 The next step is to estimate **relative evolutionary rates**, or RERs, for all branches in the tree for each gene. Intuitively, a gene's RER for a given branch represents how quickly or slowly the gene is evolving on that branch relative to its overall rate of evolution throughout the tree.
 
@@ -250,7 +263,9 @@ rers = readRDS("rer_mammal108.rds")
 ```
 
 ---
-## Exploring RERs (relative evolutionary rates)
+
+## Exploring RERs (relative evolutionary rates)  
+
 A branch RER reflects the result of past selective pressures on the gene over that branch.
 A positive RER indicates that branch had more changes relative to the average expectation and results from a relaxation of constraint relative to other branches, or alternatively from positive selection for amino acid changes.
 A negative RER indicates less change than expected relative to other branches, and results from higher selective constraint, supposedly because the gene was more important for fitness over that branch.  
@@ -277,7 +292,7 @@ plotRers(rermat=rers, index="PERP", species_from = rownames(mammal108phenotypes)
 
 ---
 
-# Phenotype Definition: Tooth Enamel Loss
+# Phenotype Definition: Tooth Enamel Loss  
 
 Now we will associate variation in these RERs with variation in a **binary trait** across the tree. To do so, we first need to provide information about which branches of the tree have the trait of interest (**foreground branches**). There are several possible ways to do this:
 
@@ -326,7 +341,7 @@ Weights are displayed on foreground branches in the automatically produced trait
 <img src="images/traitEnamel.jpg" width=500>
 
 ---
-## Generating **paths** using `tree2Paths` or `foreground2Paths`
+## Generating **paths** using `tree2Paths` or `foreground2Paths`  
 
 Some of the genes (like BEND3 above) may not have data for all species, meaning that their phylogeny will be a subset of the full phylogeny. To plot RERs for these genes and to correlate them with trait evolution, we run one of two functions that determine how the trait would evolve along all/many possible subsets of the full phylogeny, generating a set of **paths**. The function `tree2Paths` takes a binary tree as input.
 
@@ -337,8 +352,10 @@ phenoEnamel = tree2Paths( enamelTraitTree, treesObj )
 
 ---
 
-# Binary Trait Analysis
-## Association of branch RERs with Enamel Loss
+# Binary Trait Analysis  
+
+## Association of branch RERs with Enamel Loss  
+
 Now that we have estimates for the RERs for all genes of interest, as well as a representation of how the trait of interest evolves across the tree, we can use `correlateWithBinaryPhenotype` to test for an association between relative evolutionary rate and trait across all branches of the tree.  
 We will allow RERconverge to automatically detect that this is a weighted analysis with the weighted phenotype vector `weighted="auto"`.  
 Importantly, we will also implement outlier control by Winsorizing the 2 most extreme RER values in each direction for each gene `winsorizeRER=2`.
@@ -379,7 +396,7 @@ Examining the extreme top or bottom of this sorting shows top positively and neg
 
 ---
 
-# Interpretation
+# Interpretation  
 
 - **Positive correlation (Rho > 0)**  
   → Accelerated evolution in enamel-less mammals (relaxed constraint)
@@ -394,7 +411,8 @@ Expected findings include:
 - Evidence of repeated pseudogenization events
 
 
-## Significant Genes
+## Significant Genes  
+
 Genes with **FDR < 0.05** are considered significantly associated with enamel loss.
 
 Which interesting genes do you observe? Consult the list of enamel genes in the **Biological Background** and pick a few others to research on your own.
@@ -429,14 +447,16 @@ Questions:
 6. Now try the top gene MMP20 or other genes of your choice. FOXO1 is an interesting developmental transcription factor.
 
 ---
-# Gene Set Enrichment Analysis
+
+# Gene Set Enrichment Analysis  
+
 A common downstream analysis in genomics to to ask which gene annotations are enriched among the top-scoring genes.
 Enriched functions, pathwyas, or molecular characteristics help us make sense of what we have discovered at a higher level than single genes.
 It can also help us to not over-interpret the significance result of a single gene when making our final conclusions with the best possible consideration.  
 
 There are many enrichment analysis programs available. We will use a simple web-based tool, [GOrilla](https://cbl-gorilla.cs.technion.ac.il/), which operates on Gene Ontology annotation terms.
 
-## Deriving a ranked gene list
+## Deriving a ranked gene list  
 
 We will perform our enrichment on Rho-signed negative log p-values from our correlation results. 
 The *getStat* function converts our correlation results to these values, removes NA values, and returns a named numeric vector where names correspond to rownames from the correlation results (in this case, gene names).
@@ -468,15 +488,18 @@ We employed this in our study of hair in [Kowalczyk, Chikina, & Clark. *eLife* 2
 
 Try variations of the enrichment analysis, such as different numbers of top genes, different ontologies, or the ranked list choice in Step 2.
 
+
 ---
-## You can also try [RERconverge's gene set enrichment analysis](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md)
+
+## Now try [RERconverge's gene set enrichment analysis](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md)
 Enrichment analysis in RERconverge can be customized and fine-tuned for your study.
 It also accepts any annotations, even for non-model organisms, including custom annotations in a simple format.
 Learn how to use it in this [lab extension](https://github.com/nclark-lab/PhyloGenomicsLab/tree/main/lab_docs/enrichment_analysis.md).
 
 
 ---
-# Conclusions
+
+# Conclusions  
 
 This analysis illustrates how **RERconverge** leverages convergent phenotypic evolution to identify genes underlying complex traits. 
 Tooth enamel loss provides a clear, biologically interpretable example where evolutionary rate shifts reflect repeated relaxation of developmental constraints.
@@ -488,11 +511,11 @@ What is an example of a trait that required adaptive changes instead?
 
 
 ---
-# Extensions
+# Extensions  
 To learn more about comparative genomics approaches, consider the following extensions into continuous traits using **RERconverge** and *d*~N~/*d*~S~-based analysis of positive selection on foreground species using **BUSTED-PH**.
 
 ---
-## Continuous Trait Analysis -- Long lifespan in Mammals
+## Continuous Trait Analysis -- Long lifespan in Mammals  
 
 <img src="images/lifespan.jpg" width=400>
 
@@ -503,7 +526,7 @@ A similar study is reported in [Kowalczyk et al. *eLife* 2020](https://elifescie
 
 
 ---
-## Postive selection on foreground branches
+## Postive selection on foreground branches  
 [BUSTED-PH](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) (PH for "phenotype") is a set of likelihood models composed to specifically test for positive selection on foreground branches, but also to differentiate that from any positive selection (if present) on background branches as well.
 By considering the background branches, BUSTED-PH can identify genes that are uniquely under positive selection during a foreground-specific event, thus making much sharper conclusions than previous branch-site *d*~N~/*d*~S~ models.
 The [BUSTED-PH GitHub](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-PH) has full tutorial and documentation.
@@ -511,7 +534,7 @@ The [BUSTED-PH GitHub](https://github.com/veg/hyphy-analyses/tree/master/BUSTED-
 
 ---
 
-# Reading
+# Reading  
 
 ### Review of phyloGenomics as applied to adaptive and convergent evolution
 - [Clark, Kowalczyk, Kopania & Chikina. 2025 *Ann Rev Genetics* Phylogenomic Approaches to Study Adaptive Evolution in Mammals: From Aging to Aquatic Lifestyles](https://www.annualreviews.org/content/journals/10.1146/annurev-genet-030325-041233)
