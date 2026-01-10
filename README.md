@@ -57,6 +57,11 @@ All trees are assumed to be in *Newick format*.
 ---
 ### Load or Install [R](https://www.r-project.org/) and [R Studio](https://posit.co/download/rstudio-desktop/)  
 
+Open RStudio and navigate to the course materials directory
+```
+setwd("Desktop/workshop_materials/PhyloGenomicsLab")
+```
+
 ### Install packages (run once)  
 ```{install r libraries}
 install.packages("devtools")
