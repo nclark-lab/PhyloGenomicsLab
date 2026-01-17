@@ -130,7 +130,7 @@ Next, the study requires multiple sequence alignments (MSAs) of many orthologous
 Not all species are required for each gene, RERconverge can handle sparse data, since orthologous gene sets always experience gains and losses naturally.
 
 There are multiple potential sources for orthologous gene MSAs:
-1. Download MSAs from projects such as [Zoonomia](https://zoonomiaproject.org/), the [Vertebrate Genomes Project](https://vertebrategenomesproject.org/), EMSEMBL, etc...
+1. Download MSAs from projects such as [Zoonomia](https://zoonomiaproject.org/), the [Vertebrate Genomes Project](https://vertebrategenomesproject.org/), ENSEMBL, etc...
 2. Extract genes from a whole-genome alignment of many species in HAL or MAF format.
 3. Group and Align annotated genes from your species. Suggested to use OrthoFinder followed by OrthoSnap.
 4. Download [Clark lab gene trees](https://github.com/nclark-lab/ComparativeData/wiki). (Alignments also available).
@@ -156,10 +156,10 @@ Alternatively, use the `DECIPHER` package in R to export an alignment image to y
 library(Biostrings); library(DECIPHER); # Load required libraries
 alnLIM2 = readAAStringSet("alignments/LIM2.mfa")
 colors = c(`-`="#000000", `A`="#BDB1E8", `R`="#EFA2C5", `N`="#F6602F",
-+             `D`="#FD5559", `C`="#12C7FE", `Q`="#DDACB4", `E`="#FEA097", `G`="#F46802",
-+             `H`="#FCA708", `I`="#369BD9", `L`="#2E95EC", `K`="#CF7690", `M`="#4B8EFE",
-+             `F`="#76997D", `P`="#FD2AE3", `S`="#A08A9A", `T`="#9A84D5", `W`="#74C80D",
-+             `Y`="#9BB896", `V`="#89B9F9")
+           `D`="#FD5559", `C`="#12C7FE", `Q`="#DDACB4", `E`="#FEA097", `G`="#F46802",
+           `H`="#FCA708", `I`="#369BD9", `L`="#2E95EC", `K`="#CF7690", `M`="#4B8EFE",
+           `F`="#76997D", `P`="#FD2AE3", `S`="#A08A9A", `T`="#9A84D5", `W`="#74C80D",
+           `Y`="#9BB896", `V`="#89B9F9")
 BrowseSeqs(alnLIM2,colors=colors,patterns=names(colors))
 ```
 ### Lens Instrinsic Membrane protein 2 (LIM2).  
@@ -167,12 +167,63 @@ LIM2 encodes a protein important in lens function and hence vision.
 Which species appear to have the most amino acid changes in otherwise conserved columns? Why these species?
 You can use mammal108phenotypes table to translate genome versions to species common names.
 
+---
+# Infer a gene tree for LIM2
+
+## Seaview GUI program
+Seaview has implementations of 3 kinds of phylogeny inference. We will use distance and maximum likelihood (PhyML program). 
+
+### Distance 
+In the "Tree" menu in the menu bar, choose "Distance". The default choices are fine, but experiment with them if you'd like. Distance tree calculation is very fast. What do you notice about the species? Keep in mind that species relationships inferred from just 1 gene will often be wrong, due to insufficient data.
+
+### Likelihood (PhyML)
+Now choose "PhyML" in the "Trees" menu. Select an amino acid substitution model like "BLOSUM" or "LG". Otherwise, default parameters are fine. Run the inference. This will take several minutes. Generally ML trees are more accurate. Are there any differences compared to your distance-based tree?
+
+### Writing trees to file
+`seaview` allows saving of trees to file in Newick format through the "File" menu in the tree's window itself. Saving as an unrooted tree is typically the most realistic representation.
+
+---
+
+## Phangorn - inferring trees in R
+The phangorn package is already loaded in your R environment. It's inference functions are highly customizable and so have many options. We will use a basic set of options.
+
+### Distance-based trees
+Distance is a very fast method for rough and generally correct trees. However, for large numbers of species and single genes, there will be many incorrect branches.
+
+```
+tree_dist = NJ(dist.ml(alignment, model="Blosum62"))
+```
+
+Now, inspect the inferred tree as below. 
+```
+plot(tree_dist, cex=0.6)
+```
+
+The tree can be written to a text file in the paranthetic Newick format, *e.g.*, (cow:1, (human:0.1,chimpanzee:0.1):0.8);
+
+```
+write.tree(tree_dist, file="my_tree.mwk", digits=5)
+```
+
+### Likelihood - **Skip this section for the lab. It is only for reference.**
+Likelihood is always a better choice. It will run slowly however, and running in R is generally not recommended. Faster likelihood programs include RAxML and IQ-TREE.  
+
+`phangorn` will perform likelihood-based tree inference as below, but I do not recommend it due to long run times. Below is code to show how, but **please skip ahead to "Calculating branch lengths" for the lab.**
+
+```
+alignment <- read.phyDat("alignments_test/HBA1.mfa", format = "fasta", type = "AA")
+tree_dist = NJ(dist.ml(alignment))
+model <- pml_bb( alignment, model="Blosum62+I+G(4)", rearrangement="stochastic", method="unrooted")
+```
+
+The resulting model object contains lots of information, such as the likelihood score `model$logLik` of your model given the data (alignment), the parameter estimates (such as rate classes `model$rate`), and of course the tree itself `model$tree`. The tree can be plotted and saved as before using model$tree. List the object's contents to see all `ls(model)`.  
+
 
 ---
 
 # Calculating branch lengths  
 
-RERconverge includes tree-building functions that perform maximum likelihood branch length estimation given a fixed tree topology and alignments for each sequence of interest.
+RERconverge includes tree-building functions that perform maximum likelihood branch length estimation given a **fixed** tree topology and alignments for each sequence of interest.
 These functions are built directly on [`phangorn`](https://cran.r-project.org/web/packages/phangorn/index.html) functions `pml` and `optim.pml`, including arguments for parameters passed directly to those functions.
 For more details on those functions, refer to `phangorn` documentation.
 
@@ -180,7 +231,7 @@ For more details on those functions, refer to `phangorn` documentation.
 ## Input file specification  
 
 Tree building functions require two inputs: a species tree topology and alignments from which to estimate branch lengths.
-The species tree topology is strictly enforced, so all branch lengths are estimated for each gene, but the branching pattern is not inferred. A central assumption of RERconverge and other rates-based approaches is that the orthologous gene groups are all true orthologs.  
+The species tree topology is strictly enforced, so all branch lengths are estimated for each gene, but the branching pattern is not inferred. (This is different from when you inferred the tree topology in the previous section!) A central assumption of RERconverge and other rates-based approaches is that the orthologous gene groups are all true orthologs.
 
 One must also name the output trees file in which to place all final trees. The trees file is used as direct input to RERconverge.
 
