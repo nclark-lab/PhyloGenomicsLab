@@ -246,7 +246,7 @@ The function `estimatePhangornTreeAll` estimates branch lengths for all sequence
 * `output.file`: filepath to desired location to save estimated trees.  Trees are written in Newick format in a single text file, the proper format to supply to the RERconverge `readTrees` function.
 * `format`: string specifying the type of alignment file contained in `alndir`.  Defaults to "fasta", and options include "phylip", "interleaved", "sequential", "clustal", "fasta", and "nexus".
 * `type`: string specifying sequence type, passed on to phangorn function `read.phyDat`.  Defaults to "AA", and options include "DNA", "AA", "CODON", and "USER".
-* `submodel`: string specifying the substitution model to use when estimating tree branch lengths. Defaults to "LG", and options include "JC", "F81", "K80", "HKY", "SYM", and "GTR" - see phangorn documentation for additional options.
+* `submodel`: string specifying the substitution model to use when estimating tree branch lengths. Defaults to "LG", and options include "WAG" - see phangorn documentation for additional options.
 * `...`: other parameters, such as those specifying model fit parameters, are passed on to phangorn functions `pml` and `optim.pml`.
 
 ```{r results='hide', message = FALSE, warning = FALSE}
@@ -255,7 +255,7 @@ estimatePhangornTreeAll(alndir="alignments_test" , treefile="speciesTree108.nwk"
 
 Note that default argument specification is appropriate for amino acid alignments in fasta format and uses the LG substitution model.  This may also be specified by including arguments format="fasta", type="AA", and submodel="LG".
 
-For DNA sequences, the general time reversible model (GTR) is a popular substitution model.  When using `estimatePhangornTreeAll`, specify this model with the arguments type="DNA" and submodel="GTR".
+For DNA sequences, the general time reversible model (GTR) is a popular substitution model.  When using `estimatePhangornTreeAll`, specify this model with the arguments type="AA" and submodel="WAG".
 
 ---
 
