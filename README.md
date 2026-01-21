@@ -168,13 +168,13 @@ Which species appear to have the most amino acid changes in otherwise conserved 
 You can use mammal108phenotypes table to translate genome versions to species common names.
 
 ---
-# Infer a gene tree for LIM2
+# Infer a gene tree for HBA1
 
 ## Seaview GUI program
 Seaview has implementations of 3 kinds of phylogeny inference. We will use distance and maximum likelihood (PhyML program). 
 
 ### Distance 
-In the "Tree" menu in the menu bar, choose "Distance". The default choices are fine, but experiment with them if you'd like. Distance tree calculation is very fast. What do you notice about the species? Keep in mind that species relationships inferred from just 1 gene will often be wrong, due to insufficient data.
+First, close the LIM2 alignment and open the **HBA1** gene in Seaview. In the "Tree" menu in the menu bar, choose "Distance". The default choices are fine, but experiment with them if you'd like. Distance tree calculation is very fast. What do you notice about the species? Keep in mind that species relationships inferred from just 1 gene will often be wrong, due to insufficient data.
 
 ### Likelihood (PhyML)
 Now choose "PhyML" in the "Trees" menu. Select an amino acid substitution model like "BLOSUM" or "LG". Otherwise, default parameters are fine. Run the inference. This will take several minutes. Generally ML trees are more accurate. Are there any differences compared to your distance-based tree?
@@ -191,6 +191,7 @@ The phangorn package is already loaded in your R environment. It's inference fun
 Distance is a very fast method for rough and generally correct trees. However, for large numbers of species and single genes, there will be many incorrect branches.
 
 ```
+alignment <- read.phyDat("alignments_test/HBA1.mfa", format = "fasta", type = "AA")
 tree_dist = NJ(dist.ml(alignment, model="Blosum62"))
 ```
 
